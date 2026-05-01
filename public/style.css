@@ -1,0 +1,144 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #0b0b0b;
+    color: #fff;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background: #000;
+    position: sticky;
+    top: 0;
+}
+
+nav a {
+    margin-left: 20px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+nav a:hover {
+    color: #ff3c00;
+}
+
+.hero {
+    height: 90vh;
+    background: url('https://wallpapers.com/images/hd/viagem-de-moto-esportiva-1wbu7ecuydmtkbx1.jpg') center/cover;
+    display: flex;
+    align-items: right;
+    padding-left: 60px;
+    justify-content: flex-end;
+}
+
+.hero-content h2 {
+    font-size: 48px;
+    margin-right: 50px;
+}
+
+.hero-content p {
+    margin: 10px 0;
+    justify-self: flex-end;
+    margin-right: 50px;
+}
+
+.btn {
+    display: flex;
+    justify-self: flex-end;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: #ff3c00;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-right: 50px;
+}
+
+.features {
+    display: flex;
+}
+
+.auth-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #000000, #1a1a1a);
+}
+
+.auth-box {
+    background: #111;
+    padding: 40px;
+    border-radius: 15px;
+    width: 350px;
+    box-shadow: 0 0 30px rgba(255, 60, 0, 0.25);
+    text-align: center;
+    position: relative;
+    backdrop-filter: blur(10px);
+}
+
+.auth-box::before {
+    content: "";
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(255, 60, 0, 0.15), transparent);
+    top: -100px;
+    left: -100px;
+    z-index: -1;
+}
+
+.auth-box h2 {
+    margin-bottom: 15px;
+    font-size: 26px;
+}
+
+.auth-box h3 {
+    margin-top: 25px;
+    font-size: 15px;
+    color: #aaa;
+}
+
+.auth-box input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px;
+    background: #1f1f1f;
+    color: #fff;
+    outline: none;
+    transition: 0.3s;
+}
+
+.auth-box input:focus {
+    border: 1px solid #ff3c00;
+    box-shadow: 0 0 8px rgba(255, 60, 0, 0.5);
+}
+
+.auth-box button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background: linear-gradient(45deg, #ff3c00, #ff6a00);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.auth-box button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(255, 60, 0, 0.6);
+}
+
+.auth-box p {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #bbb;
+}
