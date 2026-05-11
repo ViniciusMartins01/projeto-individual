@@ -121,17 +121,11 @@
     // Verificando se há algum campo em branco
     if (
       nomeVar == "" ||
-      nomeVar.length <= 1 ||
-      emailVar.includes("@") == false ||
-      emailVar.includes(".") == false ||
       emailVar == "" ||
       senhaVar == "" ||
-      senhaVar.length <= 6 ||
-      senhaVar != confirmacaoSenhaVar ||
       confirmacaoSenhaVar == "" ||
       codigoVar == "" ||
-      cpfVar == "" ||
-      cpfVar.length != 11
+      cpfVar == ""
     ) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
@@ -139,6 +133,20 @@
 
       finalizarAguardar();
       return false;
+    } else if (
+      nomeVar.length <= 1 ||
+      emailVar.includes("@") == false ||
+      emailVar.includes(".") == false ||
+      senhaVar.length <= 6 ||
+      senhaVar != confirmacaoSenhaVar ||
+      cpfVar.length != 11) {
+        cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+        "(Nome deve conter mais de 1 caractere, email deve ser válido, senha deve conter mais de 6 caracteres e ser igual a confirmação, CPF deve conter 11 caracteres)";
+
+      finalizarAguardar();
+      return false;
+
     } else {
       setInterval(sumirMensagem, 5000);
     }
