@@ -8,10 +8,14 @@ body {
 header {
     display: flex;
     justify-content: space-between;
-    padding: 20px 40px;
+    padding: 12px 50px;
     background: #000;
     position: sticky;
     top: 0;
+}
+
+nav {
+    margin-top: 30px;
 }
 
 nav a {
