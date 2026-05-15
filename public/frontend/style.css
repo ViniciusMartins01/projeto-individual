@@ -8,7 +8,7 @@ body {
 header {
     display: flex;
     justify-content: space-between;
-    padding: 12px 50px;
+    padding: 0px 60px;
     background: #000;
     position: sticky;
     top: 0;
@@ -145,4 +145,14 @@ nav a:hover {
     margin-top: 10px;
     font-size: 14px;
     color: #bbb;
+}
+
+.win {
+  color:#00ff88;
+  font-weight:bold;
+}
+
+.compare-card ul li {
+  padding:6px 0;
+  border-bottom:1px solid #333;
 }
