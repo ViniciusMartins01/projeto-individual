@@ -1,15 +1,3 @@
-<!-- ================= HOME PROFISSIONAL (index.html) ================= -->
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MotoRadar</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
 *{
   margin:0;
   padding:0;
@@ -33,6 +21,9 @@ header{
   z-index:1000;
   background:rgba(0,0,0,0.85);
   backdrop-filter:blur(10px);
+}
+header.scrolled{
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);
 }
 
 .logo{
@@ -64,6 +55,26 @@ nav a:hover{
   justify-content:space-between;
   padding:0 8%;
   gap:50px;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 20% 50%, rgba(225,6,0,0.2), transparent 60%);
+}
+.hero-text, .hero-image{
+  animation:fadeUp 1s ease;
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(30px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 .hero-text{
@@ -143,6 +154,7 @@ nav a:hover{
   border-radius:15px;
   border:1px solid transparent;
   transition:0.3s;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
 }
 
 .stat-card:hover{
@@ -242,105 +254,3 @@ footer{
     font-size:48px;
   }
 }
-</style>
-</head>
-<body>
-
-<header>
-  <div class="logo">MotoRadar</div>
-
-  <nav>
-    <a href="teste2.html">Home</a>
-    <a href="catalogo.html">Catálogo</a>
-    <a href="comparador.html">Comparador</a>
-    <a href="#">Blog</a>
-    <a href="login.html">Login</a>
-  </nav>
-</header>
-
-<section class="hero">
-
-  <div class="hero-text">
-    <span>PLATAFORMA DE MOTOS</span>
-
-    <h1>
-      Explore o universo
-      das duas rodas.
-    </h1>
-
-    <p>
-      Compare motos, descubra novidades e encontre
-      informações completas sobre os modelos mais desejados.
-    </p>
-
-    <div class="buttons">
-      <a href="#" class="btn-primary">Explorar catálogo</a>
-      <a href="#" class="btn-secondary">Ver comparador</a>
-    </div>
-  </div>
-
-  <div class="hero-image">
-    <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?q=80&w=1200&auto=format&fit=crop" alt="Moto esportiva">
-  </div>
-
-</section>
-
-<section class="stats">
-
-  <div class="stat-card">
-    <h2>150+</h2>
-    <p>Motos catalogadas</p>
-  </div>
-
-  <div class="stat-card">
-    <h2>20+</h2>
-    <p>Marcas disponíveis</p>
-  </div>
-
-  <div class="stat-card">
-    <h2>100%</h2>
-    <p>Projeto acadêmico em ADS</p>
-  </div>
-
-</section>
-
-<section class="categories">
-
-  <div class="section-title">
-    <h2>Categorias <span>Populares</span></h2>
-  </div>
-
-  <div class="category-grid">
-
-    <div class="category-card">
-      <img src="https://images.unsplash.com/photo-1517846693594-1567da72af75?q=80&w=1200&auto=format&fit=crop">
-      <div class="overlay">
-        <h3>Esportivas</h3>
-      </div>
-    </div>
-
-    <div class="category-card">
-      <img src="https://images.unsplash.com/photo-1558981285-6f0c94958bb6?q=80&w=1200&auto=format&fit=crop">
-      <div class="overlay">
-        <h3>Naked</h3>
-      </div>
-    </div>
-
-    <div class="category-card">
-      <img src="https://images.unsplash.com/photo-1609630875171-b1321377ee65?q=80&w=1200&auto=format&fit=crop">
-      <div class="overlay">
-        <h3>Adventure</h3>
-      </div>
-    </div>
-
-  </div>
-
-</section>
-
-<footer>
-  <p>© 2026 MotoRadar - Projeto acadêmico ADS</p>
-</footer>
-
-</body>
-</html>
-

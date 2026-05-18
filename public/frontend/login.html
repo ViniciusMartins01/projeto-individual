@@ -1,53 +1,34 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - MotoRadar</title>
+  <link href="./css/login.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
+  <header>
+    <a href="index.html" class="logo">MotoRadar</a>
+  </header>
 
-<div class="auth-container">
-  <div class="auth-box">
-    <h2>Login</h2>
-    <input type="email" placeholder="Email">
-    <input type="password" placeholder="Senha">
-    <button>Entrar</button>
+  <div class="container">
+    <div class="box">
+      <h2>Entrar no MotoRadar</h2>
 
-    <h3>Cadastro</h3>
-    <input type="text" placeholder="Nome" id="ipt_nome">
-    <input type="email" placeholder="Email" id="ipt_email">
-    <input type="password" placeholder="Senha" id="ipt_senha">
-    <button onclick="cadastrar()">Cadastrar</button>
+      <input type="email" placeholder="Email">
+      <input type="password" placeholder="Senha">
+
+      <button>Entrar</button>
+
+      <div class="link">
+        Não tem conta? <a href="cadastro.html">Criar conta</a>
+      </div>
+    </div>
   </div>
-</div>
 
 </body>
-</html>
-<script>
-  let nomes = [];
-  let emails = [];
-  let senhas = [];
-function cadastrar() {
-  let nome = ipt_nome.value;
-  let email = ipt_email.value;
-  let senha = ipt_senha.value;
-  let caracteres = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '[', ']', '{', '}', '|', ';', ':', '"', "'", '<', '>', ',', '.', '?', '/'];
-  for (let i = 0; i < caracteres.length; i++) {
-    if (senha.includes(caracteres[i])) {
-      alert('A senha não pode conter caracteres especiais.');
-      break;
-    }
-  }
-   if (nome == '' || email == '' || senha == ''  || senha.length < 6) {
-    alert('Por favor, preencha todos os campos e verifique o comprimento da senha.');
-  } else{
-    nomes.push(nome);
-    emails.push(email);
-    senhas.push(senha);
-    alert('Cadastro realizado com sucesso!');
-  }
 
-}
-</script>
+</html>
