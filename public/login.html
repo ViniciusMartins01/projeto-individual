@@ -18,10 +18,10 @@
     <div class="box">
       <h2>Entrar no MotoRadar</h2>
 
-      <input type="email" placeholder="Email">
-      <input type="password" placeholder="Senha">
+      <input type="email" placeholder="Email" id="email_input">
+      <input type="password" placeholder="Senha" id="senha_input">
 
-      <button>Entrar</button>
+      <button onclick="entrar()">Entrar</button>
 
       <div class="link">
         Não tem conta? <a href="cadastro.html">Criar conta</a>
@@ -75,7 +75,7 @@ function entrar() {
                     sessionStorage.ID_USUARIO = json.id;
 
                     setTimeout(function () {
-                        window.location = "/dashboard.html";
+                        window.location = "dashboard.html";
                     }, 1000); // apenas para exibir o loading
 
                 });
