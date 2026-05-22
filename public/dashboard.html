@@ -8,237 +8,16 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
+<link rel="icon" href="./assets/icon/icon-black.png">
+<link href="./css/dash.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+<script src="./js/sessao.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<style>
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-body{
-  background:#0B0B0B;
-  color:#FFFFFF;
-  font-family:'Poppins', sans-serif;
-  display:flex;
-  overflow-x:hidden;
-}
-
-/* SIDEBAR */
-
-.sidebar{
-  width:260px;
-  height:100vh;
-  background:#111111;
-  padding:30px 20px;
-  position:fixed;
-  left:0;
-  top:0;
-  border-right:1px solid #1F1F1F;
-}
-
-.logo{
-  font-size:30px;
-  font-weight:700;
-  color:#E10600;
-  margin-bottom:50px;
-}
-
-.menu{
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-}
-
-.menu a{
-  text-decoration:none;
-  color:#B3B3B3;
-  padding:14px 18px;
-  border-radius:12px;
-  transition:.3s;
-  font-weight:500;
-}
-
-.menu a:hover{
-  background:#1A1A1A;
-  color:#FFFFFF;
-}
-
-.menu .active{
-  background:linear-gradient(135deg,#E10600,#FF2B2B);
-  color:#FFFFFF;
-  box-shadow:0 10px 20px rgba(225,6,0,0.2);
-}
-
-/* CONTENT */
-
-.content{
-  margin-left:260px;
-  width:calc(100% - 260px);
-  padding:40px;
-}
-
-/* TOPBAR */
-
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:40px;
-}
-
-.topbar h1{
-  font-size:38px;
-}
-
-.user{
-  background:#161616;
-  border:1px solid #1F1F1F;
-  padding:14px 22px;
-  border-radius:14px;
-  color:#B3B3B3;
-}
-
-/* CARDS */
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:25px;
-  margin-bottom:35px;
-}
-
-.card{
-  background:#161616;
-  padding:28px;
-  border-radius:20px;
-  border:1px solid transparent;
-  transition:.3s;
-  box-shadow:0 10px 30px rgba(0,0,0,0.25);
-}
-
-.card:hover{
-  transform:translateY(-5px);
-  border-color:#E10600;
-}
-
-.card h2{
-  font-size:16px;
-  color:#B3B3B3;
-  margin-bottom:12px;
-  font-weight:500;
-}
-
-.card p{
-  font-size:38px;
-  font-weight:700;
-  color:#E10600;
-}
-
-/* CHARTS */
-
-.charts{
-  display:grid;
-  grid-template-columns:2fr 1fr;
-  gap:25px;
-}
-
-.chart-container{
-  background:#161616;
-  padding:25px;
-  border-radius:20px;
-  border:1px solid #1F1F1F;
-  height:420px;
-  position:relative;
-}
-
-.chart-container h3{
-  margin-bottom:20px;
-  color:#FFFFFF;
-}
-
-canvas{
-  width:100% !important;
-  height:100% !important;
-}
-
-/* TABLE */
-
-.table-container{
-  margin-top:30px;
-  background:#161616;
-  border-radius:20px;
-  padding:25px;
-  border:1px solid #1F1F1F;
-}
-
-.table-container h2{
-  margin-bottom:20px;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-}
-
-th, td{
-  padding:16px;
-  text-align:left;
-  border-bottom:1px solid #222222;
-}
-
-th{
-  color:#B3B3B3;
-  font-weight:500;
-}
-
-td{
-  color:#FFFFFF;
-}
-
-tr{
-  transition:.3s;
-}
-
-tr:hover{
-  background:#1A1A1A;
-}
-
-/* RESPONSIVO */
-
-@media(max-width:1000px){
-
-  .charts{
-    grid-template-columns:1fr;
-  }
-
-}
-
-@media(max-width:768px){
-
-  .sidebar{
-    display:none;
-  }
-
-  .content{
-    margin-left:0;
-    width:100%;
-    padding:20px;
-  }
-
-}
-
-</style>
 </head>
 
-<body>
+<body onload="obterDados()">
 
-<!-- SIDEBAR -->
 
 <div class="sidebar">
 
@@ -248,32 +27,23 @@ tr:hover{
 
   <div class="menu">
     <a href="#" class="active">Dashboard</a>
-    <a href="#">Catálogo</a>
-    <a href="#">Comparador</a>
-    <a href="#">Usuários</a>
-    <a href="#">Relatórios</a>
-    <a href="#">Sair</a>
+    <a href="catalogo.html">Catálogo</a>
+    <a <button onclick="limparSessao()">Sair</button></a>
   </div>
 
 </div>
 
-<!-- CONTENT -->
 
 <div class="content">
-
-  <!-- TOPBAR -->
-
   <div class="topbar">
 
     <h1>Dashboard</h1>
 
     <div class="user">
-      Bem-vindo, Usuário
+      Bem-vindo,<span id="b_usuario">Usuário</span>
     </div>
 
   </div>
-
-  <!-- CARDS -->
 
   <div class="cards">
 
@@ -291,20 +61,12 @@ tr:hover{
       <h2>Usuários</h2>
       <p id="totalUsuarios">0</p>
     </div>
-
-    <div class="card">
-      <h2>Visualizações</h2>
-      <p id="totalViews">0</p>
-    </div>
-
   </div>
-
-  <!-- CHARTS -->
 
   <div class="charts">
 
     <div class="chart-container">
-      <h3>Visualizações por dia</h3>
+      <h3>Velocidade Máxima por moto</h3>
       <canvas id="graficoMotos"></canvas>
     </div>
 
@@ -314,8 +76,6 @@ tr:hover{
     </div>
 
   </div>
-
-  <!-- TABLE -->
 
   <div class="table-container">
 
@@ -345,176 +105,94 @@ tr:hover{
 </div>
 
 <script>
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-   let proximaAtualizacao;
+    //window.onload = obterDados();
+    // O gráfico é construído com três funções:
+    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
+    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
+    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
 
+    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
+    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
+    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
 
-async function carregarDashboard() {
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function obterDados() {
 
-  try {
+        fetch(`/motos/ObterDados`)
+        .then(function (response) {
+            return response.json();
+           })
+            .then(function(data){
+              plotarGraficoBarra(data);
+              plotarGraficoDonuts(data);
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
 
-    const resposta = await fetch('/dashboard/listar');
-    const dados = await resposta.json();
+            plotarGraficoBarra(dados);
+            plotarGraficoDonuts(dados);
+    }
 
-    /* CARDS */
+    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+    function plotarGraficoBarra(resposta) {
 
-    document.getElementById('totalMotos').innerText = dados.totalMotos;
-    document.getElementById('totalMarcas').innerText = dados.totalMarcas;
-    document.getElementById('totalUsuarios').innerText = dados.totalUsuarios;
-    document.getElementById('totalViews').innerText = dados.totalViews;
+        console.log('iniciando plotagem do gráfico...');
 
-    /* TABELA */
+        // Criando estrutura para plotar gráfico - labels
+        let velocidades = [];
 
-    const tabela = document.getElementById('tabelaMotos');
+        // Criando estrutura para plotar gráfico - dados
+        let nomes = [];
 
-    tabela.innerHTML = '';
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
 
-    dados.ultimasMotos.forEach(moto => {
-
-      tabela.innerHTML += `
-        <tr>
-          <td>${moto.id}</td>
-          <td>${moto.modelo}</td>
-          <td>${moto.marca}</td>
-          <td>${moto.velocidade} km/h</td>
-        </tr>
-      `;
-
-    });
-
-    criarGraficoMotos(dados.graficoMotos);
-    criarGraficoMarcas(dados.graficoMarcas);
-
-  } catch(erro) {
-
-    console.log('Erro ao carregar dashboard:', erro);
-
-  }
-
-}
-
-/* CHART LINE */
-
-function criarGraficoMotos(dados) {
-
-  const ctx = document.getElementById('graficoMotos');
-
-  new Chart(ctx, {
-
-    type:'line',
-
-    data:{
-      labels:dados.labels,
-
-      datasets:[{
-        label:'Visualizações',
-        data:dados.valores,
-        borderColor:'#E10600',
-        backgroundColor:'rgba(225,6,0,0.15)',
-        borderWidth:3,
-        tension:.4,
-        fill:true,
-        pointBackgroundColor:'#FFFFFF',
-        pointBorderColor:'#E10600',
-        pointRadius:5
-      }]
-    },
-
-    options:{
-      responsive:true,
-      maintainAspectRatio:false,
-
-      plugins:{
-        legend:{
-          labels:{
-            color:'#FFFFFF'
-          }
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            velocidades.push(registro.velocidadeMax);
+            nomes.push(registro.modelo);
         }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+
+         var ctx = document.getElementById('graficoMotos').getContext('2d');
+  // Criando o gráfico de barra usando o Chart.js
+  var myChart = new Chart(ctx, {
+      type: 'bar', // Tipo de gráfico: barra
+      data: { // Dados para o gráfico
+          labels: nomes, // Rótulos no eixo X
+          datasets: [{
+              label: 'Velocidade Máxima', // Nome do conjunto de dados
+              data: velocidades, // Dados dos votos
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)', // Cor de fundo das barras
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)', // Cor da borda das barras
+              ],
+              borderWidth: 1 // Largura da borda das barras
+          }]
       },
-
-      scales:{
-
-        x:{
-          ticks:{
-            color:'#B3B3B3'
-          },
-          grid:{
-            color:'#222222'
-          }
-        },
-
-        y:{
-          ticks:{
-            color:'#B3B3B3'
-          },
-          grid:{
-            color:'#222222'
-          }
-        }
-
-      }
+  });
 
     }
 
-  });
-
-}
-
-/* CHART DOUGHNUT */
-
-function criarGraficoMarcas(dados){
-
-  const ctx = document.getElementById('graficoMarcas');
-
-  new Chart(ctx, {
-
-    type:'doughnut',
-
-    data:{
-      labels:dados.labels,
-
-      datasets:[{
-
-        data:dados.valores,
-
-        backgroundColor:[
-          '#E10600',
-          '#FF2B2B',
-          '#991111',
-          '#550000'
-        ],
-
-        borderWidth:0
-
-      }]
-    },
-
-    options:{
-      responsive:true,
-      maintainAspectRatio:false,
-
-      plugins:{
-        legend:{
-          labels:{
-            color:'#FFFFFF'
-          }
-        }
-      }
-
-    }
-
-  });
-
-}
-
-/* AUTO UPDATE */
-
-setInterval(() => {
-  carregarDashboard();
-}, 5000);
-
-carregarDashboard();
-
+   
 </script>
 
 </body>
