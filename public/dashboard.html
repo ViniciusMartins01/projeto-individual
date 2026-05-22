@@ -16,7 +16,7 @@
 
 </head>
 
-<body onload="obterDados()">
+<body>
 
 
 <div class="sidebar">
@@ -107,7 +107,7 @@
 <script>
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    //window.onload = obterDados();
+    window.onload = obterDados();
     // O gráfico é construído com três funções:
     // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
     // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
@@ -127,14 +127,11 @@
            })
             .then(function(data){
               plotarGraficoBarra(data);
-              plotarGraficoDonuts(data);
             })
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
 
-            plotarGraficoBarra(dados);
-            plotarGraficoDonuts(dados);
     }
 
     // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico

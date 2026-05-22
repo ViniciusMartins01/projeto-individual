@@ -1,6 +1,6 @@
 var motoModel = require("../models/motoModel");
 
-function ObterDadosMoto(req, res) {
+function pegarDadosMoto(req, res) {
     motoModel.obter().then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);

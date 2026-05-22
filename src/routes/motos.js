@@ -4,8 +4,8 @@ var router = express.Router();
 var motoController = require("../controllers/motoController");
 
 
-router.get("/ObterDados", function (req, res) {
-    medidaController.ObterDadosMoto(req, res);
+router.get("/pegarDadosMoto", function (req, res) {
+    motoController.pegarDadosMoto(req, res);
 });
 
 
