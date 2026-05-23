@@ -40,7 +40,7 @@
     <h1>Dashboard</h1>
 
     <div class="user">
-      Bem-vindo,<span id="b_usuario">Usuário</span>
+      Bem-vindo, <span id="b_usuario"> Usuário</span>
     </div>
 
   </div>
@@ -121,7 +121,7 @@
     //     Para ajustar o "select", ajuste o comando sql em src/models
     function obterDados() {
 
-        fetch(`/motos/ObterDados`)
+        fetch(`/motos/listar`)
         .then(function (response) {
             return response.json();
            })
@@ -161,9 +161,9 @@
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
         console.log('Labels:')
-        console.log(labels)
+        console.log(nomes)
         console.log('Dados:')
-        console.log(dados.datasets)
+        console.log(velocidades)
         console.log('----------------------------------------------')
 
 
