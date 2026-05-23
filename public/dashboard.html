@@ -1,110 +1,112 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MotoRadar Dashboard</title>
+  <title>MotoRadar Dashboard</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="icon" href="./assets/icon/icon-black.png">
-<link href="./css/dash.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="./js/sessao.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="./assets/icon/icon-black.png">
+  <link href="./css/dash.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="./js/sessao.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
 <body>
 
 
-<div class="sidebar">
+  <div class="sidebar">
 
-  <div class="logo">
-    MotoRadar
-  </div>
+    <div class="logo">
+      MotoRadar
+    </div>
 
-  <div class="menu">
-    <a href="#" class="active">Dashboard</a>
-    <a href="catalogo.html">Catálogo</a>
-    <a <button onclick="limparSessao()">Sair</button></a>
-  </div>
-
-</div>
-
-
-<div class="content">
-  <div class="topbar">
-
-    <h1>Dashboard</h1>
-
-    <div class="user">
-      Bem-vindo, <span id="b_usuario"> Usuário</span>
+    <div class="menu">
+      <a href="dashboard.html" class="active">Dashboard</a>
+      <a href="cadastrador.html">Cadastrar Motos</a>
+      <a href="catalogo.html">Catálogo</a>
+      <a <button onclick="limparSessao()">Sair</button></a>
     </div>
 
   </div>
 
-  <div class="cards">
 
-    <div class="card">
-      <h2>Total de Motos</h2>
-      <p id="totalMotos">0</p>
+  <div class="content">
+    <div class="topbar">
+
+      <h1>Dashboard</h1>
+
+      <div class="user">
+        Bem-vindo, <span id="b_usuario"> Usuário</span>
+      </div>
+
     </div>
 
-    <div class="card">
-      <h2>Marcas Cadastradas</h2>
-      <p id="totalMarcas">0</p>
+    <div class="cards">
+
+      <div class="card">
+        <h2>Total de Motos</h2>
+        <p id="totalMotos">0</p>
+      </div>
+
+      <div class="card">
+        <h2>Marcas Cadastradas</h2>
+        <p id="totalMarcas">0</p>
+      </div>
+
+      <div class="card">
+        <h2>Usuários</h2>
+        <p id="totalUsuarios">0</p>
+      </div>
     </div>
 
-    <div class="card">
-      <h2>Usuários</h2>
-      <p id="totalUsuarios">0</p>
+    <div class="charts">
+
+      <div class="chart-container">
+        <h3>Informações gerais por moto</h3>
+        <canvas id="graficoMotos"></canvas>
+      </div>
+
+      <div class="chart-container">
+        <h3>Marcas populares</h3>
+        <canvas id="graficoMarcas"></canvas>
+      </div>
+
     </div>
+
+    <div class="table-container">
+
+      <h2>Últimas motos cadastradas</h2>
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>ID</th>
+            <th>Modelo</th>
+            <th>Marca</th>
+            <th>Velocidade</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="tabelaMotos">
+
+        </tbody>
+
+      </table>
+
+    </div>
+
   </div>
 
-  <div class="charts">
-
-    <div class="chart-container">
-      <h3>Velocidade Máxima por moto</h3>
-      <canvas id="graficoMotos"></canvas>
-    </div>
-
-    <div class="chart-container">
-      <h3>Marcas populares</h3>
-      <canvas id="graficoMarcas"></canvas>
-    </div>
-
-  </div>
-
-  <div class="table-container">
-
-    <h2>Últimas motos cadastradas</h2>
-
-    <table>
-
-      <thead>
-
-        <tr>
-          <th>ID</th>
-          <th>Modelo</th>
-          <th>Marca</th>
-          <th>Velocidade</th>
-        </tr>
-
-      </thead>
-
-      <tbody id="tabelaMotos">
-
-      </tbody>
-
-    </table>
-
-  </div>
-
-</div>
-
-<script>
+  <script>
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     window.onload = obterDados();
@@ -121,16 +123,22 @@
     //     Para ajustar o "select", ajuste o comando sql em src/models
     function obterDados() {
 
-        fetch(`/motos/listar`)
+      fetch(`/motos/listar`)
         .then(function (response) {
-            return response.json();
-           })
-            .then(function(data){
-              plotarGraficoBarra(data);
-            })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
+          return response.json();
+        })
+        .then(function (data) {
+          plotarGraficoBarra(data);
+          plotarGraficoDonuts(data);
+        })
+        .catch(function (error) {
+          console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+
+      obterInfos();
+
+    }
+    function obterInfos() {
 
     }
 
@@ -139,58 +147,105 @@
     // A função *plotarGrafico* também invoca a função *atualizarGrafico*
     function plotarGraficoBarra(resposta) {
 
-        console.log('iniciando plotagem do gráfico...');
+      console.log('iniciando plotagem do gráfico...');
 
-        // Criando estrutura para plotar gráfico - labels
-        let velocidades = [];
+      // Criando estrutura para plotar gráfico - labels
+      let velocidades = [];
+      let pesos = [];
+      let consumos = [];
+      let torques = [];
 
-        // Criando estrutura para plotar gráfico - dados
-        let nomes = [];
+      // Criando estrutura para plotar gráfico - dados
+      let nomes = [];
 
-        console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        console.log(resposta)
+      console.log('----------------------------------------------')
+      console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+      console.log(resposta)
 
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
-        for (i = 0; i < resposta.length; i++) {
-            var registro = resposta[i];
-            velocidades.push(registro.velocidadeMax);
-            nomes.push(registro.modelo);
-        }
+      // Inserindo valores recebidos em estrutura para plotar o gráfico
+      for (i = 0; i < resposta.length; i++) {
+        var registro = resposta[i];
+        velocidades.push(registro.velocidadeMax);
+        nomes.push(registro.modelo);
+        pesos.push(registro.peso)
+      }
 
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log(nomes)
-        console.log('Dados:')
-        console.log(velocidades)
-        console.log('----------------------------------------------')
+      console.log('----------------------------------------------')
+      console.log('O gráfico será plotado com os respectivos valores:')
+      console.log('Labels:')
+      console.log(nomes)
+      console.log('Dados:')
+      console.log(velocidades, pesos)
+      console.log('----------------------------------------------')
 
 
-         var ctx = document.getElementById('graficoMotos').getContext('2d');
-  // Criando o gráfico de barra usando o Chart.js
-  var myChart = new Chart(ctx, {
-      type: 'bar', // Tipo de gráfico: barra
-      data: { // Dados para o gráfico
-          labels: nomes, // Rótulos no eixo X
+      var ctx = document.getElementById('graficoMotos').getContext('2d');
+      // Criando o gráfico de barra usando o Chart.js
+      var myChart = new Chart(ctx, {
+        type: 'bar', 
+        data: { 
+          labels: nomes, 
           datasets: [{
-              label: 'Velocidade Máxima', // Nome do conjunto de dados
-              data: velocidades, // Dados dos votos
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)', // Cor de fundo das barras
-              ],
-              borderColor: [
-                  'rgba(255, 99, 132, 1)', // Cor da borda das barras
-              ],
-              borderWidth: 1 // Largura da borda das barras
+            label: 'Velocidade Máxima', 
+            data: velocidades, 
+            backgroundColor: 'rgba(225, 6, 0, 0.2)',
+            borderColor: 'rgba(225, 6, 0, 1)', 
+            borderWidth: 1,
+            borderRadius: 5,
+            hoverBackgroundColor: 'rgba(255, 43, 43, 0.8)'
+            
+
+          },
+          {
+            label: 'Peso',
+            data: pesos,
+            backgroundColor: 'rgba(59, 130, 246, 0.2)',
+            borderColor: 'rgba(59, 130, 246, 1)',
+            borderWidth: 1,
+            borderRadius: 5,
+            hoverBackgroundColor: 'rgba(96, 165, 250, 0.8)'
+
           }]
-      },
-  });
+        },
+
+      });
 
     }
 
-   
-</script>
+    function plotarGraficoDonuts(dados) {
+
+      // Separando os rótulos (labels) e os dados dos votos
+      var votos = [];
+      var jogadores = [];
+
+      // Preenchendo os arrays com os dados
+      for (var i = 0; i < dados.length; i++) {
+        votos.push(dados[i].votos);
+        jogadores.push(dados[i].jogador);
+      }
+
+      // Capturando o elemento canvas pelo id 
+      var ctx = document.getElementById('linha').getContext('2d');
+      // Criando o gráfico de linha usando o Chart.js
+      var myChart = new Chart(ctx, {
+        type: 'line', // Tipo de gráfico: linha
+        data: { // Dados para o gráfico
+          labels: jogadores,
+          datasets: [{
+            label: 'Votos',
+            data: votos,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+
+            borderColor:'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+          }]
+        },
+      });
+    }
+
+
+  </script>
 
 </body>
+
 </html>
