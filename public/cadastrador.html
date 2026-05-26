@@ -51,7 +51,7 @@
       <div class="form-grid">
         <div class="input-group">
           <label>Nome da moto</label>
-          <input type="text" placeholder="Ex: Yamaha R1">
+          <input id="ipt_modelo" type="text" placeholder="Ex: Yamaha R1">
         </div>
 
         <div class="input-group">
@@ -59,14 +59,14 @@
 
           <select>
             <option>Selecione</option>
-            <option>Honda</option>
-            <option>Yamaha</option>
-            <option>Kawasaki</option>
-            <option>BMW</option>
-            <option>Suzuki</option>
-            <option>Bajaj</option>
-            <option>Shineray</option>
-            <option>Dafra</option>
+            <option value="1">Honda</option>
+            <option value="2">Yamaha</option>
+            <option value="3">Kawasaki</option>
+            <option value="4">Suzuki</option>
+            <option value="5">BMW</option>
+            <option value="6">Bajaj</option>
+            <option value="7">Shineray</option>
+            <option value="8">Dafra</option>
           </select>
         </div>
 
@@ -75,43 +75,44 @@
 
           <select>
             <option>Selecione</option>
-            <option>Esportiva</option>
-            <option>Naked</option>
-            <option>Adventure</option>
-            <option>Custom</option>
-            <option>Trail</option>
-            <option>Street</option>
+            <option value="1">Esportiva</option>
+            <option value="2">Naked</option>
+            <option value="3">Adventure</option>
+            <option value="4">Custom</option>
+            <option value="5">Trail</option>
+            <option value="6">Street</option>
           </select>
         </div>
 
 
         <div class="input-group">
           <label>Cilindrada</label>
-          <input type="number" placeholder="Ex: 1000">
+          <input id="ipt_cilindrada" type="number" placeholder="Ex: 1000">
         </div>
 
 
         <div class="input-group">
           <label>Preço</label>
-          <input type="number" placeholder="Ex: 85000">
+          <input id="ipt_potencia" type="number" placeholder="Ex: 85000">
+        </div>
+
+        <div class="input-group">
+          <label>Potência</label>
+          <input id="ipt_potencia" type="number" placeholder="Ex: 85000">
         </div>
 
 
         <div class="input-group">
           <label>Foto da moto</label>
-          <input type="file" id="fotoInput" accept="image/*">
+          <input  type="text" id="ipt_foto" placeholder="Ex: url">
         </div>
 
-      </div>
 
 
-      <div class="preview" id="preview">
-        <span style="color:#555;">Pré-visualização da imagem</span>
-      </div>
 
 
       <div class="button-area">
-        <button type="submit" class="btn">
+        <button onclick="cadastrar()" type="submit" class="btn">
           Cadastrar Moto
         </button>
       </div>
@@ -125,30 +126,7 @@
 <script>
 b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-const fotoInput = document.getElementById('fotoInput');
-const preview = document.getElementById('preview');
 
-fotoInput.addEventListener('change', function(){
-
-  const file = this.files[0];
-
-  if(file){
-
-    const reader = new FileReader();
-
-    reader.onload = function(e){
-
-      preview.innerHTML = `
-        <img src="${e.target.result}">
-      `;
-
-    }
-
-    reader.readAsDataURL(file);
-
-  }
-
-});
 
 </script>
 

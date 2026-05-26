@@ -30,6 +30,7 @@
       <a href="dashboard.html" class="active">Dashboard</a>
       <a href="cadastrador.html">Cadastrar Motos</a>
       <a href="catalogo.html">Catálogo</a>
+      <a href="avaliacao.html">Avaliar</a>
       <a <button onclick="limparSessao()">Sair</button></a>
     </div>
 
@@ -152,8 +153,11 @@
       // Criando estrutura para plotar gráfico - labels
       let velocidades = [];
       let pesos = [];
+      let potencias = [];
       let consumos = [];
       let torques = [];
+      let precos = [];
+      let cilindradas = [];
 
       // Criando estrutura para plotar gráfico - dados
       let nomes = [];
@@ -167,7 +171,12 @@
         var registro = resposta[i];
         velocidades.push(registro.velocidadeMax);
         nomes.push(registro.modelo);
-        pesos.push(registro.peso)
+        pesos.push(registro.peso);
+        potencias.push(registro.potencia);
+        consumos.push(registro.consumo);
+        torques.push(registro.torque);
+        precos.push(registro.preco);
+        cilindradas.push(registro.cilindrada);
       }
 
       console.log('----------------------------------------------')
@@ -175,25 +184,25 @@
       console.log('Labels:')
       console.log(nomes)
       console.log('Dados:')
-      console.log(velocidades, pesos)
+      console.log(velocidades, pesos, potencias, consumos, torques, precos, cilindradas)
       console.log('----------------------------------------------')
 
 
       var ctx = document.getElementById('graficoMotos').getContext('2d');
       // Criando o gráfico de barra usando o Chart.js
       var myChart = new Chart(ctx, {
-        type: 'bar', 
-        data: { 
-          labels: nomes, 
+        type: 'bar',
+        data: {
+          labels: nomes,
           datasets: [{
-            label: 'Velocidade Máxima', 
-            data: velocidades, 
+            label: 'Velocidade Máxima',
+            data: velocidades,
             backgroundColor: 'rgba(225, 6, 0, 0.2)',
-            borderColor: 'rgba(225, 6, 0, 1)', 
+            borderColor: 'rgba(225, 6, 0, 1)',
             borderWidth: 1,
             borderRadius: 5,
             hoverBackgroundColor: 'rgba(255, 43, 43, 0.8)'
-            
+
 
           },
           {
@@ -204,6 +213,56 @@
             borderWidth: 1,
             borderRadius: 5,
             hoverBackgroundColor: 'rgba(96, 165, 250, 0.8)'
+
+          },
+          {
+            label: 'Potência',
+            data: potencias,
+            backgroundColor: 'rgba(255, 255, 255, 0.15)',
+            borderColor: 'rgba(255, 255, 255, 0.9)',
+            hoverBackgroundColor: 'rgba(255, 255, 255, 0.3)',
+            borderWidth: 1,
+            borderRadius: 5,
+
+          },
+          {
+            label: 'Autonomia KM/L',
+            data: consumos,
+            backgroundColor: 'rgba(109, 109, 109, 0.2)',
+            borderColor: 'rgba(109, 109, 109, 1)',
+            hoverBackgroundColor: 'rgba(200, 200, 200, 0.35)',
+            borderWidth: 1,
+            borderRadius: 5,
+
+          },
+          {
+            label: 'Torque',
+            data: torques,
+            backgroundColor: 'rgba(249, 115, 22, 0.2)',
+            borderColor: 'rgba(249, 115, 22, 1)',
+            hoverBackgroundColor: 'rgba(251, 146, 60, 0.85)',
+            borderWidth: 1,
+            borderRadius: 5,
+
+          },
+          {
+            label: 'Preço',
+            data: precos,
+            backgroundColor: 'rgba(34, 197, 94, 0.2)',
+            borderColor: 'rgba(34, 197, 94, 1)',
+            hoverBackgroundColor: 'rgba(74, 222, 128, 0.8)',
+            borderWidth: 1,
+            borderRadius: 5,
+
+          },
+          {
+            label: 'Cilindradas',
+            data: cilindradas,
+            backgroundColor: 'rgba(168, 85, 247, 0.2)',
+            borderColor: 'rgba(168, 85, 247, 1)',
+            hoverBackgroundColor: 'rgba(192, 132, 252, 0.8)',
+            borderWidth: 1,
+            borderRadius: 5,
 
           }]
         },
@@ -236,7 +295,7 @@
             data: votos,
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
 
-            borderColor:'rgba(255, 99, 132, 1)',
+            borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 1
           }]
         },
