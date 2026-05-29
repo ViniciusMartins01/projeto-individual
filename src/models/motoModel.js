@@ -9,9 +9,9 @@ function listar() {
         return database.executar(instrucaoSql);
 }
 
-function cadastrar(modelo) {
+function cadastrar(modelo, velocidadeMax, cilindrada, potencia, torque, peso, consumo, preco, foto, marca, categoria) {
     var instrucao = `
-        INSERT INTO moto (modelo) VALUES ('${modelo}');
+        INSERT INTO moto (modelo, velocidadeMax, cilindrada, potencia, torque, peso, consumo, preco, imagem, fkMarca, fkCategoria) VALUES ('${modelo}', ${velocidadeMax}, ${cilindrada}, ${potencia}, ${torque}, ${peso}, ${consumo}, ${preco}, '${foto}', ${marca}, ${categoria});
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -20,4 +20,4 @@ function cadastrar(modelo) {
 module.exports = {
     cadastrar,
     listar
-};
+}

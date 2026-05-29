@@ -11,14 +11,20 @@ function listar(req, res) {
 }
 
 function cadastrar(req, res) {
-        var nome = req.body.nome;
+        var modelo = req.body.modeloServer;
+        var velocidadeMax = req.body.velocidadeMaxServer;
+        var cilindrada = req.body.cilindradaServer;
+        var potencia = req.body.potenciaServer;
+        var torque = req.body.torqueServer;
+        var peso = req.body.pesoServer;
+        var consumo = req.body.consumoServer;
+        var foto = req.body.fotoServer;
+        var marca = req.body.marcaServer;
+        var categoria = req.body.categoriaServer;
+        var preco = req.body.precoServer;
 
-        if (nome == undefined) {
-            res.status(400).send("Seu nome está undefined!");
-        }
-
-        motoModel.cadastrar(nome).then(function (resposta) {
-            res.status(200).send("Carro criado com sucesso");
+        motoModel.cadastrar(modelo, velocidadeMax, cilindrada, potencia, torque, peso, consumo, preco, foto, marca, categoria).then(function (resposta) {
+            res.status(200).send("Moto criada com sucesso");
         }).catch(function (erro) {
             res.status(500).json(erro.sqlMessage);
         })
