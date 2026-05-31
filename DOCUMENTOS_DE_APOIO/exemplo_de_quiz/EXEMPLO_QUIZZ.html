@@ -76,29 +76,135 @@
     const listaDeQuestoes = [
 
         {
-            pergunta: "Qual mês tem 30 dias?",
-            alternativaA: "Janeiro",
-            alternativaB: "Dezembro",
-            alternativaC: "Junho",
-            alternativaD: "Agosto",
+            pergunta: "Qual componente é considerado o principal responsável por executar instruções dentro do computador? ",
+            alternativaA: "GPU",
+            alternativaB: "SSD",
+            alternativaC: "CPU",
+            alternativaD: "SSD",
             alternativaCorreta: "alternativaC"
         },
 
         {
-            pergunta: "Quantas horas tem em um dia?",
-            alternativaA: "30 horas",
-            alternativaB: "38 horas",
-            alternativaC: "48 horas",
-            alternativaD: "24 horas",
+            pergunta: "Qual parte do processador realiza cálculos matemáticos e comparações lógicas?",
+            alternativaA: "Chipset",
+            alternativaB: "BIOS",
+            alternativaC: "Cache",
+            alternativaD: "ULA",
             alternativaCorreta: "alternativaD"
         },
 
         {
-            pergunta: "Qual destes números é ímpar?",
-            alternativaA: "Dez",
-            alternativaB: "Doze",
-            alternativaC: "Oito",
-            alternativaD: "Onze",
+            pergunta: "Como são chamadas as pequenas memórias internas e muito rápidas que ficam dentro do processador?",
+            alternativaA: "Slots",
+            alternativaB: "Setores",
+            alternativaC: "Barramentos",
+            alternativaD: "Registradores",
+            alternativaCorreta: "alternativaD"
+        },
+
+        {
+            pergunta: "Qual tipo de memória temporária perde os dados quando o computador é desligado?",
+            alternativaA: "RAM",
+            alternativaB: "ROM",
+            alternativaC: "Flash",
+            alternativaD: "Cache L3",
+            alternativaCorreta: "alternativaA"
+        },
+
+        {
+            pergunta: "Qual memória mantém dados gravados mesmo sem energia e costuma armazenar instruções permanentes?",
+            alternativaA: "Cache",
+            alternativaB: "ROM",
+            alternativaC: "RAM",
+            alternativaD: "Registrador",
+            alternativaCorreta: "alternativaB"
+        },
+        {
+            pergunta: "Qual memória não volátil pode ser apagada e reprogramada por um processo especial?",
+            alternativaA: "SRAM",
+            alternativaB: "DRAM",
+            alternativaC: "EPROM",
+            alternativaD: "Cache",
+            alternativaCorreta: "alternativaC"
+        },
+        {
+            pergunta: "Qual tipo de memória não volátil é comum em pen drives, SSDs e cartões de memória?",
+            alternativaA: "RAM",
+            alternativaB: "Flash",
+            alternativaC: "ROM",
+            alternativaD: "Cache",
+            alternativaCorreta: "alternativaB"
+        },
+        {
+            pergunta: "Como é chamado o armazenamento usado para guardar arquivos e programas por longo prazo?",
+            alternativaA: "Buffer",
+            alternativaB: "Registrador",
+            alternativaC: "Memória cache",
+            alternativaD: "Memória de massa",
+            alternativaCorreta: "alternativaD"
+        },
+        {
+            pergunta: "Qual tecnologia permite que dispositivos acessem diretamente a memória sem depender continuamente da CPU?",
+            alternativaA: "USB",
+            alternativaB: "RAID",
+            alternativaC: "DMA",
+            alternativaD: "BIOS",
+            alternativaCorreta: "alternativaC"
+        },
+        {
+            pergunta: "Qual sinal é usado para ativar ou selecionar um chip específico em um circuito?",
+            alternativaA: "IRQ",
+            alternativaB: "BUS",
+            alternativaC: "CS",
+            alternativaD: "CLK",
+            alternativaCorreta: "alternativaC"
+        },
+        {
+            pergunta: "Qual barramento indica o local da memória ou dispositivo que será acessado?",
+            alternativaA: "USB Bus",
+            alternativaB: "Address Bus",
+            alternativaC: "Data Bus",
+            alternativaD: "Control Bus",
+            alternativaCorreta: "alternativaB"
+        },
+        {
+            pergunta: "Qual barramento transporta os dados entre processador, memória e dispositivos?",
+            alternativaA: "PCI Bus",
+            alternativaB: "Control Bus",
+            alternativaC: "Data Bus",
+            alternativaD: "Address Bus",
+            alternativaCorreta: "alternativaC"
+        },
+        {
+            pergunta: "Qual modelo da Intel costuma ser usado em computadores de desempenho intermediário a avançado?",
+            alternativaA: "Atom",
+            alternativaB: "Pentium",
+            alternativaC: "i5",
+            alternativaD: "Celeron",
+            alternativaCorreta: "alternativaC"
+        },
+        {
+            pergunta: "Qual modelo da Intel geralmente oferece desempenho superior ao i5 dentro da mesma geração?",
+            alternativaA: "Pentium",
+            alternativaB: "i3",
+            alternativaC: "Celeron",
+            alternativaD: "i7",
+            alternativaCorreta: "alternativaD"
+        },
+        {
+            pergunta: "Como é chamado um processador que possui dois núcleos de processamento?",
+            alternativaA: "Quad Core",
+            alternativaB: "Dual Core",
+            alternativaC: "Single Core",
+            alternativaD: "Octa Core",
+            alternativaCorreta: "alternativaB"
+        },
+        {
+            pergunta: "Como é chamado um processador que possui quatro núcleos de processamento?",
+            alternativaA: "Dual Core",
+            alternativaB: "Hexa Core",
+            alternativaC: "Single Core",
+            alternativaD: "Quad Core",
             alternativaCorreta: "alternativaD"
         }
 
@@ -271,14 +377,14 @@
             classComCoresParaMensagemFinal = "text-success-with-bg"
         }
 
-        textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos)*100) + "% das questões."
+        textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos) * 100) + "% das questões."
 
 
         document.getElementById('msgFinal').innerHTML = textoParaMensagemFinal
-        document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal) 
+        document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal)
         document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
 
-        document.getElementById('jogo').classList.add("text-new-gray") 
+        document.getElementById('jogo').classList.add("text-new-gray")
 
         btnProx.disabled = true
         btnSubmeter.disabled = true
