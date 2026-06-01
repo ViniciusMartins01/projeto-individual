@@ -73,6 +73,11 @@
         <canvas id="graficoMotos"></canvas>
       </div>
 
+      <div class="chart-container">
+        <h3>Marcas Populares</h3>
+        <canvas id="graficoMarcas"></canvas>
+      </div>
+
 
     </div>
 
@@ -107,17 +112,7 @@
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     window.onload = obterDados();
-    // O gráfico é construído com três funções:
-    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
-    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
-    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
 
-    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
-    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
-    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
-
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
     function obterDados() {
 
       fetch(`/motos/listar`)
@@ -136,26 +131,28 @@
 
     }
     function obterInfos() {
+      fetch(`/motos/obter`)
+      .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          plotarGraficoBarra(data);
+          plotarGraficoDonuts(data);
+        })
+        .catch(function (error) {
+          console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
 
     }
-
-    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
     function plotarGraficoBarra(resposta) {
 
       console.log('iniciando plotagem do gráfico...');
-
-      // Criando estrutura para plotar gráfico - labels
       let velocidades = [];
       let pesos = [];
       let potencias = [];
       let consumos = [];
       let torques = [];
-      let precos = [];
-      let cilindradas = [];
-
-      // Criando estrutura para plotar gráfico - dados
+      let custoBeneficio = [];
       let nomes = [];
 
       console.log('----------------------------------------------')
@@ -171,8 +168,7 @@
         potencias.push(registro.potencia);
         consumos.push(registro.consumo);
         torques.push(registro.torque);
-        precos.push(registro.preco);
-        cilindradas.push(registro.cilindrada);
+        custoBeneficio.push(Number(registro.preco / registro.cilindrada))
       }
 
       console.log('----------------------------------------------')
@@ -180,7 +176,7 @@
       console.log('Labels:')
       console.log(nomes)
       console.log('Dados:')
-      console.log(velocidades, pesos, potencias, consumos, torques, precos, cilindradas)
+      console.log(velocidades, pesos, potencias, consumos, torques)
       console.log('----------------------------------------------')
 
 
@@ -222,6 +218,16 @@
 
           },
           {
+            label: 'Custo por Cilindrada',
+            data: custoBeneficio,
+            backgroundColor: 'rgba(34, 197, 94, 0.2)',
+            borderColor: 'rgba(34, 197, 94, 1)',
+            hoverBackgroundColor: 'rgba(74, 222, 128, 0.8)',
+            borderWidth: 1,
+            borderRadius: 5,
+
+          },
+          {
             label: 'Autonomia KM/L',
             data: consumos,
             backgroundColor: 'rgba(109, 109, 109, 0.2)',
@@ -241,16 +247,6 @@
             borderRadius: 5,
 
           },
-          /*{
-            label: 'Preço',
-            data: precos,
-            backgroundColor: 'rgba(34, 197, 94, 0.2)',
-            borderColor: 'rgba(34, 197, 94, 1)',
-            hoverBackgroundColor: 'rgba(74, 222, 128, 0.8)',
-            borderWidth: 1,
-            borderRadius: 5,
-
-          },*/
           /*{
             label: 'Cilindradas',
             data: cilindradas,
