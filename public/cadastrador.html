@@ -10,7 +10,7 @@
   <link rel="icon" href="./assets/icon/icon-black.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="./css/cadastrar.css">
+  <link rel="stylesheet" href="./css/dash.css">
   <script src="./js/sessao.js"></script>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -21,19 +21,19 @@
 
   <div class="sidebar">
 
-    <div class="logo">MotoRadar</div>
+    <div class="logo">MotoByte</div>
 
     <div class="menu">
       <a href="dashboard.html">Dashboard</a>
-      <a href="cadastrador.html" class="active">Cadastrar Moto</a>
+      <a href="cadastrador.html" class="active">Cadastrar Motos</a>
       <a href="catalogo.html">Catálogo</a>
-      <a href="avaliacao.html">Avaliação</a>
+      <a href="avaliacao.html">Avaliar</a>
       <a <button onclick="limparSessao()">Sair</button></a>
     </div>
 
   </div>
 
-  <div class="main">
+  <div class="content">
     <div class="topbar">
       <h1>Cadastro de Motos</h1>
       <div class="user">
@@ -87,27 +87,31 @@
           </div>
           <div class="input-group">
             <label>Potência</label>
-            <input id="ipt_potencia" type="number" placeholder="Ex: 85000">
+            <input id="ipt_potencia" type="number" placeholder="Ex: 100">
           </div>
           <div class="input-group">
             <label>Torque</label>
-            <input id="ipt_torque" type="number" placeholder="Ex: 85000">
+            <input id="ipt_torque" type="number" placeholder="Ex: 10">
           </div>
           <div class="input-group">
             <label>Velocidade Máxima</label>
-            <input id="ipt_velocidadeMax" type="number" placeholder="Ex: 85000">
+            <input id="ipt_velocidadeMax" type="number" placeholder="Ex: 200">
           </div>
           <div class="input-group">
             <label>Peso</label>
-            <input id="ipt_peso" type="number" placeholder="Ex: 85000">
+            <input id="ipt_peso" type="number" placeholder="Ex: 200">
           </div>
           <div class="input-group">
             <label>Consumo</label>
-            <input id="ipt_consumo" type="number" placeholder="Ex: 85000">
+            <input id="ipt_consumo" type="number" placeholder="Ex: 25">
           </div>
           <div class="input-group">
             <label>Foto da moto</label>
             <input type="text" id="ipt_foto" placeholder="Ex: url">
+          </div>
+          <div class="input-group">
+            <label>Descrição</label>
+            <input type="text" id="ipt_desc" placeholder="Ex: Moto esportiva de alta cilindrada">
           </div>
           <div class="button-area">
             <button onclick="cadastrar()" type="submit" class="btn">
@@ -122,6 +126,7 @@
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     function cadastrar() {
+      var id = sessionStorage.ID_USUARIO
       var modelo = ipt_modelo.value;
       var cilindrada = ipt_cilindrada.value;
       var potencia = ipt_potencia.value;
@@ -133,6 +138,7 @@
       var marca = ipt_marca.value;
       var categoria = ipt_categoria.value;
       var preco = ipt_preco.value;
+      var desc = ipt_desc.value
 
       fetch("/motos/cadastrar", {
         method: "POST",
@@ -150,7 +156,9 @@
           fotoServer: foto,
           marcaServer: marca,
           categoriaServer: categoria,
-          precoServer: preco
+          precoServer: preco,
+          idServer: id,
+          descServer: desc
         }),
       })
         .then(function (resposta) {
@@ -161,9 +169,7 @@
         })
         .catch(function (resposta) {
           console.log(`#ERRO: ${resposta}`);
-          finalizarAguardar();
         });
-      return false;
     }
   </script>
 </body>
