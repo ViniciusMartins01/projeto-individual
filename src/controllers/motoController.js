@@ -22,15 +22,40 @@ function cadastrar(req, res) {
         var marca = req.body.marcaServer;
         var categoria = req.body.categoriaServer;
         var preco = req.body.precoServer;
+        var id = req.body.idServer;
+        var desc = req.body.descServer
 
-        motoModel.cadastrar(modelo, velocidadeMax, cilindrada, potencia, torque, peso, consumo, preco, foto, marca, categoria).then(function (resposta) {
+        motoModel.cadastrar(modelo, velocidadeMax, cilindrada, potencia, torque, peso, consumo, preco, foto, marca, categoria, id, desc).then(function (resposta) {
             res.status(200).send("Moto criada com sucesso");
         }).catch(function (erro) {
             res.status(500).json(erro.sqlMessage);
         })
     }
 
+    function obter(req, res) {
+    motoModel.obter().then(function (resultado) {
+        res.status(200).json(resultado);
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+    function obterUltimas(req, res) {
+    motoModel.obterUltimas().then(function (resultado) {
+        res.status(200).json(resultado);
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+
 module.exports = {
     listar,
-    cadastrar
+    cadastrar,
+    obter,
+    obterUltimas
 }
