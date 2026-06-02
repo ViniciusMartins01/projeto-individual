@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>MotoByte Dashboard</title>
+  <title>MotoByte | Dashboard</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,8 +29,7 @@
     <div class="menu">
       <a href="dashboard.html" class="active">Dashboard</a>
       <a href="cadastrador.html">Cadastrar Motos</a>
-      <a href="cadastradorM.html">Cadastrar Marcas</a>
-      <a href="cadastradorC.html">Cadastrar Categorias</a>
+      <a href="cadastradorM.html">Cadastrar Marcas e Categoria</a>
       <a href="avaliacao.html">Avaliar</a>
       <a href="catalogo.html">Catálogo</a>
       <a <button onclick="limparSessao()">Sair</button></a>
@@ -52,32 +51,52 @@
 
     <div class="cards">
 
-      <div class="card">
+      <div class="card-d">
         <h2>Total de Motos</h2>
         <p id="totalMotos"></p>
       </div>
 
-      <div class="card">
+      <div class="card-d">
         <h2>Marcas Cadastradas</h2>
         <p id="totalMarcas"></p>
       </div>
 
-     <!-- <div class="card"> 
-        <h2>Total de Usuários</h2>
-        <p id="totalCategoria"></p>
-     </div> -->
-
-      <div class="card">
+      <div class="card-d">
         <h2>Categorias Cadastradas</h2>
         <p id="totalCategoria"></p>
       </div>
+
+      <div class="card-d">
+        <h2>Total de Usuários</h2>
+        <p id="totalUsuarios"></p>
+      </div>
+
+      <div class="card-d">
+        <h2>Total de Visualizações</h2>
+        <p id="totalVisualizacao"></p>
+      </div>
+
+      <div class="card-d">
+        <h2>Média das avaliações</h2>
+        <p id="mediaAvaliacao"></p>
+      </div>
+
     </div>
 
     <div class="charts">
-
-      <div class="chart-container">
+      <div class="chart-container-moto">
         <h3>Informações gerais por moto</h3>
         <canvas id="graficoMotos"></canvas>
+      </div>
+    </div>
+    <div class="charts2">
+      <div class="chart-container">
+        <h3>Notas do site</h3>
+        <canvas id="graficoNotas"></canvas>
+      </div>
+      <div class="chart-container">
+        <h3>Favoritas</h3>
+        <canvas id="graficoFavoritos"></canvas>
       </div>
     </div>
 
@@ -88,7 +107,6 @@
       <table>
         <thead>
           <tr>
-            <th>ID</th>
             <th>Modelo</th>
             <th>Marca</th>
             <th>Categoria</th>
@@ -124,6 +142,28 @@
           console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
         });
 
+      fetch(`/avaliacoes/listar`)
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          plotarGraficoNota(data);
+        })
+        .catch(function (error) {
+          console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+
+      fetch(`/favoritos/listar`)
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          plotarGraficoFavorito(data);
+        })
+        .catch(function (error) {
+          console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+
     }
     function obterInfos() {
       fetch(`/motos/obter`)
@@ -134,9 +174,11 @@
         .then(function (data) {
           console.log(data);
           document.getElementById('totalMotos').innerText = data[0].totalMotos;
-          //document.getElementById('totalUsuarios').innerText = data[0].totalUsuarios;
+          document.getElementById('totalUsuarios').innerText = data[0].totalUsuarios;
           document.getElementById('totalMarcas').innerText = data[0].totalMarcas;
           document.getElementById('totalCategoria').innerText = data[0].totalCategoria;
+          document.getElementById('totalVisualizacao').innerText = data[0].totalVisualizacao;
+          document.getElementById('mediaAvaliacao').innerText = data[0].mediaAvaliacao;
         })
         .catch(function (error) {
           console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
@@ -152,18 +194,17 @@
         })
         .then(function (data) {
           console.log(data);
-         for (let i = 0; i < data.length; i++) {
-          const moto = data[i];
-          document.getElementById('tabelaMotos').innerHTML += `
+          for (let i = 0; i < data.length; i++) {
+            const moto = data[i];
+            document.getElementById('tabelaMotos').innerHTML += `
           <tr>
-            <td>${moto.idMoto}</td>
             <td>${moto.modelo}</td>
             <td>${moto.marca}</td>
             <td>${moto.categoria}</td>
           </tr>
           `;
-          
-         }
+
+          }
         })
         .catch(function (error) {
           console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
@@ -185,7 +226,6 @@
       console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
       console.log(resposta)
 
-      // Inserindo valores recebidos em estrutura para plotar o gráfico
       for (i = 0; i < resposta.length; i++) {
         var registro = resposta[i];
         velocidades.push(registro.velocidadeMax);
@@ -206,8 +246,7 @@
       console.log('----------------------------------------------')
 
 
-      var ctx = document.getElementById('graficoMotos').getContext('2d');
-      // Criando o gráfico de barra usando o Chart.js
+      var ctx = document.getElementById('graficoMotos');
       var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -273,40 +312,53 @@
             borderRadius: 5,
 
           },
-          /*{
-            label: 'Cilindradas',
-            data: cilindradas,
-            backgroundColor: 'rgba(168, 85, 247, 0.2)',
-            borderColor: 'rgba(168, 85, 247, 1)',
-            hoverBackgroundColor: 'rgba(192, 132, 252, 0.8)',
-            borderWidth: 1,
-            borderRadius: 5,
-
-          }*/]
+        ]
         },
 
       });
 
     }
 
-    function plotarGraficoDonuts(dados) {
+    function plotarGraficoNota(dados) {
+      var notas = [];
+      var valores = [];
 
-      // Separando os rótulos (labels) e os dados dos votos
+      for (var i = 0; i < dados.length; i++) {
+        notas.push(dados[i].notas);
+        valores.push(dados[i].valores);
+      }
+
+      var ctx = document.getElementById('graficoNotas');
+      var myChart = new Chart(ctx, {
+        type: 'doughnut', 
+        data: { 
+          labels: notas,
+          datasets: [{
+            label: 'notas',
+            data: valores,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+          }]
+        },
+      });
+    }
+
+    function plotarGraficoFavorito(dados) {
+
       var votos = [];
       var jogadores = [];
 
-      // Preenchendo os arrays com os dados
       for (var i = 0; i < dados.length; i++) {
         votos.push(dados[i].votos);
         jogadores.push(dados[i].jogador);
       }
 
-      // Capturando o elemento canvas pelo id 
-      var ctx = document.getElementById('linha').getContext('2d');
-      // Criando o gráfico de linha usando o Chart.js
+      var ctx = document.getElementById('linha');
       var myChart = new Chart(ctx, {
-        type: 'line', // Tipo de gráfico: linha
-        data: { // Dados para o gráfico
+        type: 'line',
+        data: { 
           labels: jogadores,
           datasets: [{
             label: 'Votos',

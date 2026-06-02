@@ -40,6 +40,11 @@
 
 <script>
 
+  function escolher(idMoto) {
+    sessionStorage.setItem(idMoto, idMoto);
+    window.location.href = 'detalhes.html'
+  }
+
   function carregarCatalogo() {
     fetch(`/motos/listar`)
         .then(function (response) {

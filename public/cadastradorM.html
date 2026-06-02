@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <script src="./js/alerta.js"></script>
+  <script src="./js/alerta.js"></script>
   <script src="./js/sessao.js"></script>
-  <title>MotoByte | Cadastro de Motos</title>
+  <title>MotoByte | Cadastro de Marca</title>
   <link rel="icon" href="./assets/icon/icon-black.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,8 +26,7 @@
     <div class="menu">
       <a href="dashboard.html">Dashboard</a>
       <a href="cadastrador.html">Cadastrar Motos</a>
-      <a href="cadastradorM.html" class="active">Cadastrar Marcas</a>
-      <a href="cadastradorC.html">Cadastrar Categorias</a>
+      <a href="cadastradorM.html" class="active">Cadastrar Marcas e Categoria</a>
       <a href="avaliacao.html">Avaliar</a>
       <a href="catalogo.html">Catálogo</a>
       <a <button onclick="limparSessao()">Sair</button></a>
@@ -37,93 +36,66 @@
 
   <div class="content">
     <div class="topbar">
-      <h1>Cadastro de Motos</h1>
+      <h1>Cadastro de Marca e Categoria</h1>
       <div class="user">
         Bem-vindo, <span id="b_usuario"> Usuário</span>
       </div>
     </div>
     <div class="form-container">
       <div class="form-title">
-        <h2>Nova Moto</h2>
-        <p>Cadastre uma nova moto no catálogo.</p>
+        <h2>Nova Marca</h2>
+        <p>Cadastre uma nova marca no catálogo.</p>
       </div>
       <form>
         <div class="form-grid">
           <div class="input-group">
-            <label>Nome da moto</label>
-            <input id="ipt_modelo" type="text" placeholder="Ex: Yamaha R1">
+            <label>Nome da marca</label>
+            <input id="ipt_nome" type="text" placeholder="Ex: Yamaha">
           </div>
           <div class="input-group">
-            <label>Marca</label>
-            <select id="ipt_marca">
-              <option>Selecione</option>
-              <option value="1">Honda</option>
-              <option value="2">Yamaha</option>
-              <option value="3">Kawasaki</option>
-              <option value="4">Suzuki</option>
-              <option value="5">BMW</option>
-              <option value="6">Bajaj</option>
-              <option value="7">Shineray</option>
-              <option value="8">Dafra</option>
-            </select>
+            <label>Pais de origem</label>
+            <input id="ipt_pais" type="number" placeholder="Ex: Alemanha">
           </div>
           <div class="input-group">
-            <label>Categoria</label>
-            <select id="ipt_categoria">
-              <option>Selecione</option>
-              <option value="1">Esportiva</option>
-              <option value="2">Naked</option>
-              <option value="3">Adventure</option>
-              <option value="4">Custom</option>
-              <option value="5">Trail</option>
-              <option value="6">Street</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>Cilindrada</label>
-            <input id="ipt_cilindrada" type="number" placeholder="Ex: 1000">
-          </div>
-          <div class="input-group">
-            <label>Preço</label>
-            <input id="ipt_preco" type="number" placeholder="Ex: 85000">
-          </div>
-          <div class="input-group">
-            <label>Potência</label>
-            <input id="ipt_potencia" type="number" placeholder="Ex: 100">
-          </div>
-          <div class="input-group">
-            <label>Torque</label>
-            <input id="ipt_torque" type="number" placeholder="Ex: 10">
-          </div>
-          <div class="input-group">
-            <label>Velocidade Máxima</label>
-            <input id="ipt_velocidadeMax" type="number" placeholder="Ex: 200">
-          </div>
-          <div class="input-group">
-            <label>Peso</label>
-            <input id="ipt_peso" type="number" placeholder="Ex: 200">
-          </div>
-          <div class="input-group">
-            <label>Consumo</label>
-            <input id="ipt_consumo" type="number" placeholder="Ex: 25">
-          </div>
-          <div class="input-group">
-            <label>Foto da moto</label>
+            <label>Foto da Marca</label>
             <input type="text" id="ipt_foto" placeholder="Ex: url">
-          </div>
-          <div class="input-group">
-            <label>Descrição</label>
-            <input type="text" id="ipt_desc" placeholder="Ex: Moto esportiva de alta cilindrada">
           </div>
           <div class="button-area">
             <button onclick="cadastrar()" type="submit" class="btn">
-              Cadastrar Moto
+              Cadastrar Marca
+            </button>
+          </div>
+      </form>
+    </div>
+  </div>
+  <div class="content2">
+    <div class="form-container">
+      <div class="form-title">
+        <h2>Nova Categoria</h2>
+        <p>Cadastre uma nova Categoria no catálogo.</p>
+      </div>
+      <form>
+        <div class="form-grid">
+          <div class="input-group">
+            <label>Nome da Categoria</label>
+            <input id="ipt_nome" type="text" placeholder="Ex: Yamaha">
+          </div>
+          <div class="input-group">
+            <label>Descrição</label>
+            <input id="ipt_desc" type="text" placeholder="Ex: Categoria focada em trilha">
+          </div>
+          <div class="button-area">
+            <button onclick="cadastrar()" type="submit" class="btn">
+              Cadastrar Categoria
             </button>
           </div>
       </form>
     </div>
   </div>
 
+</body>
+
+</html>
   <script>
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
@@ -163,9 +135,9 @@
       })
         .then(function (resposta) {
           console.log("resposta: ", resposta);
-            setTimeout(() => {
-              window.location = "dashboard.html";
-            }, "2000");
+          setTimeout(() => {
+            window.location = "dashboard.html";
+          }, "2000");
         })
         .catch(function (resposta) {
           console.log(`#ERRO: ${resposta}`);
@@ -174,5 +146,3 @@
       return false;
     }
   </script>
-</body>
-</html>

@@ -15,18 +15,27 @@ var HOST_APP = process.env.APP_HOST;
 
 var app = express();
 
+var indexRouter = require("./src/routes/index");
 var avaliacaoRouter = require("./src/routes/avaliacoes");
 var usuarioRouter = require("./src/routes/usuarios");
 var motosRouter = require("./src/routes/motos");
+var favoritoRouter = require("./src/routes/favoritos");
+var marcaRouter = require("./src/routes/marcas");
+var categoriaRouter = require("./src/routes/categorias");
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
+
+app.use("/", indexRouter);
+app.use("/favoritos", favoritoRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/motos", motosRouter);
-app.use("/avaliacoes", avaliacaoRouter);
+app.use("/marcas", marcaRouter);
+app.use("/categorias", categoriaRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`

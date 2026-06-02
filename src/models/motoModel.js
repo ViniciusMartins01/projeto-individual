@@ -24,7 +24,9 @@ function obter() {
         (select count(*) from moto) as totalMotos,
         (select count(*) from usuario) as totalUsuarios,
         (select count(*) from categoria) as totalCategoria,
-        (select count(*) from marca) as totalMarcas;
+        (select count(*) from marca) as totalMarcas,
+        (select count(visualizacoes) from moto) as totalVisualizacao,
+        (select round(avg(nota), 1) from avaliacao) as mediaAvaliacao;
         `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

@@ -4,8 +4,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <script src="./js/alerta.js"></script>
-  <script src="./js/sessao.js"></script>
   <title>MotoByte | Cadastro de Motos</title>
   <link rel="icon" href="./assets/icon/icon-black.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,8 +24,9 @@
     <div class="menu">
       <a href="dashboard.html">Dashboard</a>
       <a href="cadastrador.html" class="active">Cadastrar Motos</a>
-      <a href="catalogo.html">Catálogo</a>
+      <a href="cadastradorM.html">Cadastrar Marcas e Categoria</a>
       <a href="avaliacao.html">Avaliar</a>
+      <a href="catalogo.html">Catálogo</a>
       <a <button onclick="limparSessao()">Sair</button></a>
     </div>
 
@@ -164,7 +163,7 @@
         .then(function (resposta) {
           console.log("resposta: ", resposta);
             setTimeout(() => {
-              window.location = "dashboard.html";
+              window.location.href = "dashboard.html";
             }, "2000");
         })
         .catch(function (resposta) {
