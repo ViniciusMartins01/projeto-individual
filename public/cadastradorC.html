@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script src="./js/alerta.js"></script>
+  <script src="./js/sessao.js"></script>
+  <title>MotoByte | Cadastro de Motos</title>
+  <link rel="icon" href="./assets/icon/icon-black.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="./css/dash.css">
+  <script src="./js/sessao.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+
+  <div class="sidebar">
+
+    <div class="logo">MotoByte</div>
+
+    <div class="menu">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="cadastrador.html">Cadastrar Motos</a>
+      <a href="cadastradorM.html">Cadastrar Marcas</a>
+      <a href="cadastradorC.html" class="active">Cadastrar Categorias</a>
+      <a href="avaliacao.html">Avaliar</a>
+      <a href="catalogo.html">Catálogo</a>
+      <a <button onclick="limparSessao()">Sair</button></a>
+    </div>
+
+  </div>
+
+  <div class="content">
+    <div class="topbar">
+      <h1>Cadastro de Motos</h1>
+      <div class="user">
+        Bem-vindo, <span id="b_usuario"> Usuário</span>
+      </div>
+    </div>
+    <div class="form-container">
+      <div class="form-title">
+        <h2>Nova Moto</h2>
+        <p>Cadastre uma nova moto no catálogo.</p>
+      </div>
+      <form>
+        <div class="form-grid">
+          <div class="input-group">
+            <label>Nome da moto</label>
+            <input id="ipt_modelo" type="text" placeholder="Ex: Yamaha R1">
+          </div>
+          <div class="input-group">
+            <label>Marca</label>
+            <select id="ipt_marca">
+              <option>Selecione</option>
+              <option value="1">Honda</option>
+              <option value="2">Yamaha</option>
+              <option value="3">Kawasaki</option>
+              <option value="4">Suzuki</option>
+              <option value="5">BMW</option>
+              <option value="6">Bajaj</option>
+              <option value="7">Shineray</option>
+              <option value="8">Dafra</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Categoria</label>
+            <select id="ipt_categoria">
+              <option>Selecione</option>
+              <option value="1">Esportiva</option>
+              <option value="2">Naked</option>
+              <option value="3">Adventure</option>
+              <option value="4">Custom</option>
+              <option value="5">Trail</option>
+              <option value="6">Street</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Cilindrada</label>
+            <input id="ipt_cilindrada" type="number" placeholder="Ex: 1000">
+          </div>
+          <div class="input-group">
+            <label>Preço</label>
+            <input id="ipt_preco" type="number" placeholder="Ex: 85000">
+          </div>
+          <div class="input-group">
+            <label>Potência</label>
+            <input id="ipt_potencia" type="number" placeholder="Ex: 100">
+          </div>
+          <div class="input-group">
+            <label>Torque</label>
+            <input id="ipt_torque" type="number" placeholder="Ex: 10">
+          </div>
+          <div class="input-group">
+            <label>Velocidade Máxima</label>
+            <input id="ipt_velocidadeMax" type="number" placeholder="Ex: 200">
+          </div>
+          <div class="input-group">
+            <label>Peso</label>
+            <input id="ipt_peso" type="number" placeholder="Ex: 200">
+          </div>
+          <div class="input-group">
+            <label>Consumo</label>
+            <input id="ipt_consumo" type="number" placeholder="Ex: 25">
+          </div>
+          <div class="input-group">
+            <label>Foto da moto</label>
+            <input type="text" id="ipt_foto" placeholder="Ex: url">
+          </div>
+          <div class="input-group">
+            <label>Descrição</label>
+            <input type="text" id="ipt_desc" placeholder="Ex: Moto esportiva de alta cilindrada">
+          </div>
+          <div class="button-area">
+            <button onclick="cadastrar()" type="submit" class="btn">
+              Cadastrar Moto
+            </button>
+          </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    function cadastrar() {
+      var id = sessionStorage.ID_USUARIO
+      var modelo = ipt_modelo.value;
+      var cilindrada = ipt_cilindrada.value;
+      var potencia = ipt_potencia.value;
+      var torque = ipt_torque.value;
+      var velocidadeMax = ipt_velocidadeMax.value;
+      var peso = ipt_peso.value;
+      var consumo = ipt_consumo.value;
+      var foto = ipt_foto.value;
+      var marca = ipt_marca.value;
+      var categoria = ipt_categoria.value;
+      var preco = ipt_preco.value;
+
+      fetch("/motos/cadastrar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          modeloServer: modelo,
+          velocidadeMaxServer: velocidadeMax,
+          cilindradaServer: cilindrada,
+          potenciaServer: potencia,
+          torqueServer: torque,
+          pesoServer: peso,
+          consumoServer: consumo,
+          fotoServer: foto,
+          marcaServer: marca,
+          categoriaServer: categoria,
+          precoServer: preco,
+          idServer: id
+        }),
+      })
+        .then(function (resposta) {
+          console.log("resposta: ", resposta);
+            setTimeout(() => {
+              window.location = "dashboard.html";
+            }, "2000");
+        })
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+          finalizarAguardar();
+        });
+      return false;
+    }
+  </script>
+</body>
+</html>
