@@ -10,13 +10,14 @@
 <link rel="stylesheet" href="./css/estilo.css">
 </head>
 
-<body>
-
+<body onload="carregarCatalogo()">
   <header style="position: sticky;">
-    <div class="logo">MotoRadar</div>
+    <a href="index.html">
+      <div class="logo">MotoByte</div>
+    </a>
     <nav>
-      <a href="index.html">Home</a>
       <a href="catalogo.html">Catálogo</a>
+      <a href="dashboard.html">Dashboard</a>
       <a href="login.html">Login</a>
       <a href="cadastro.html">Cadastro</a>
     </nav>
@@ -27,27 +28,41 @@
     <p>Escolha sua próxima moto</p>
   </section>
 
-  <section class="grid">
-    <div class="card"><img src="assets/imgs/r1-catalogo.webp">
-      <div class="card-content">
-        <h3>Yamaha R1</h3>
-        <p>1000cc Esportiva</p><a class="btn" href="r1.html">Ver detalhes</a>
-      </div>
-    </div>
-    <div class="card"><img src="assets/imgs/cb500-galeria1.webp">
-      <div class="card-content">
-        <h3>Honda CB500</h3>
-        <p>500cc Naked</p><a class="btn" href="cb500.html">Ver detalhes</a>
-      </div>
-    </div>
-    <div class="card"><img src="assets/imgs/nin.jpg">
-      <div class="card-content">
-        <h3>Kawasaki Ninja</h3>
-        <p>636cc Esportiva</p><a class="btn" href="ninja600.html">Ver detalhes</a>
-      </div>
-    </div>
+  <section class="grid" id="catalogo">
   </section>
 
-</body>
+<footer>
+  <p>© 2026 MotoByte </p>
+</footer>
 
+</body>
 </html>
+
+<script>
+
+  function carregarCatalogo() {
+    fetch(`/motos/listar`)
+        .then(function (response) {
+          console.log(response)
+          return response.json();
+        })
+        .then(function (data) {
+          console.log(data)
+          for (let i = 0; i < data.length; i++) {
+          const moto = data[i];
+          document.getElementById('catalogo').innerHTML += `
+        <div class="card"><img src="${moto.imagem}">
+          <div class="card-content">
+            <h3>${moto.modelo}</h3>
+          <p>${moto.cilindrada}cc ${moto.categoria}</p><a class="btn" href="${moto.modelo}.html">Ver detalhes</a>
+          </div>
+        </div>
+          `;
+         }
+        })
+        .catch(function (error) {
+          console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+  }
+
+</script>
