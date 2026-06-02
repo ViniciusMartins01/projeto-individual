@@ -17,16 +17,17 @@
 </head>
 
 <body>
-  <!--header inicio-->
   <div class="header">
     <div class="container">
-      <h1 class="titulo">MotoByte</h1>
+      <h1 class="titulo">
+        <a href="index.html">MotoByte</a>
+      </h1>
       <ul class="navbar">
         <li>
-          <a href="index.html">Home</a>
+          <a href="catalogo.html">Catálogo</a>
         </li>
         <li>
-          <a href="catalogo.html">Catálogo</a>
+          <a href="dashboard.html">Dashboard</a>
         </li>
         <li>
           <a href="login.html">Login</a>
@@ -46,26 +47,29 @@
     </div>
     <div class="container">
       <div class="card card-cadastro">
-        <h2>Bem-vindo!</h2>
+        <h2>Crie sua <span style="color: #E10600;">Conta</span></h2>
         <div class="formulario">
           <div class="campo">
-            <span>Nome:</span>
+            <span>Nome Completo</span>
             <input id="nome_input" type="text" placeholder="Seu nome" />
           </div>
           <div class="campo">
-            <span>E-mail:</span>
+            <span>E-mail Acadêmico ou Pessoal</span>
             <input id="email_input" type="text" placeholder="seuemail@email.com" />
           </div>
           <div class="campo">
-            <span>Senha:</span>
-            <input id="senha_input" type="password" placeholder="******" />
+            <span>Defina uma Senha</span>
+            <input id="senha_input" type="password" placeholder="Mínimo 8 caracteres" />
           </div>
           <div class="campo">
-            <span>Confirmação da Senha:</span>
-            <input id="confirmacao_senha_input" type="password" placeholder="******" />
+            <span>Confirme sua Senha</span>
+            <input id="confirmacao_senha_input" type="password" placeholder="Repita a senha" />
           </div>
-          <button class="botao" onclick="cadastrar()">Cadastrar</button>
+          <button class="botao" onclick="cadastrar()">Finalizar Cadastro</button>
         </div>
+        <div class="register-footer">
+        Já tem uma conta no Radar? <a href="login.html">Faça Login aqui</a>
+      </div>
         <div id="div_aguardar" class="loading-div">
           <img src="./assets/circle-loading.gif" id="loading-gif" />
         </div>
@@ -77,8 +81,7 @@
 
   <div class="footer">
     <div class="container">
-      <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
-      <span class="version">v1.0.0</span>
+      <h4>© 2026 MotoByte</h4>
     </div>
   </div>
 </body>
@@ -89,7 +92,7 @@
 
 
   function cadastrar() {
-     aguardar();
+    aguardar();
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
@@ -110,7 +113,7 @@
       nomeVar.length <= 1 ||
       emailVar.includes("@") == false ||
       emailVar.includes(".") == false ||
-      senhaVar.length <= 6 ||
+      senhaVar.length <= 7 ||
       senhaVar != confirmacaoSenhaVar) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
