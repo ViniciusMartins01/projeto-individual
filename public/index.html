@@ -11,14 +11,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
-<body>
+<body onload="obterInfos()">
 
 <header>
   <div class="logo">MotoByte</div>
-
   <nav>
-    <a href="index.html">Home</a>
     <a href="catalogo.html">Catálogo</a>
+    <a href="dashboard.html">Dashboard</a>
     <a href="login.html">Login</a>
     <a href="cadastro.html">Cadastro</a>
   </nav>
@@ -54,17 +53,17 @@
 <section class="stats">
 
   <div class="stat-card">
-    <h2>15+</h2>
+    <h2 id="totalMotos"></h2>
     <p>Motos catalogadas</p>
   </div>
 
   <div class="stat-card">
-    <h2>5+</h2>
+    <h2 id="totalMarcas"></h2>
     <p>Marcas disponíveis</p>
   </div>
 
   <div class="stat-card">
-    <h2>6+</h2>
+    <h2 id="totalCategoria"></h2>
     <p>Categorias disponíveis</p>
   </div>
 
@@ -109,3 +108,23 @@
 
 </body>
 </html>
+
+<script>
+  function obterInfos() {
+      fetch(`/motos/obter`)
+        .then(function (response) {
+          return response.json();
+          console.log(response);
+        })
+        .then(function (data) {
+          console.log(data);
+          document.getElementById('totalMotos').innerText = data[0].totalMotos;
+          document.getElementById('totalCategoria').innerText = data[0].totalCategoria;
+          document.getElementById('totalMarcas').innerText = data[0].totalMarcas;
+        })
+        .catch(function (error) {
+          console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+
+    }
+</script>
