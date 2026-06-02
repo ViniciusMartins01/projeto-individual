@@ -15,7 +15,7 @@ body {
 
 .header {
   width: 100%;
-  padding: 20px 8%;
+  padding: 17px 8%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -33,10 +33,11 @@ body {
   align-items: center;
 }
 
-.titulo {
+.titulo a {
   font-size: 28px;
   font-weight: 700;
   color: #E10600;
+  text-decoration: none;
 }
 
 .navbar {
@@ -53,7 +54,7 @@ body {
   transition: 0.3s;
 }
 
-.navbar a:hover, 
+.navbar a:hover,
 .navbar .agora a {
   color: #E10600;
 }
@@ -68,6 +69,7 @@ body {
   background: radial-gradient(circle at 50% 50%, rgba(225, 6, 0, 0.15), transparent 70%);
 }
 
+
 .card-cadastro {
   background: #161616;
   width: 100%;
@@ -79,11 +81,35 @@ body {
   animation: fadeUp 1s ease;
 }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+.box {
+  background: #161616;
+  width: 100%;
+  max-width: 500px;
+  padding: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  animation: fadeUp 1s ease;
+
 }
 
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.card-login h1 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: #FFFFFF;
+}
 .card-cadastro h2 {
   text-align: center;
   font-size: 32px;
@@ -94,6 +120,7 @@ body {
 .formulario {
   display: flex;
   flex-direction: column;
+  width: 420px;
   gap: 20px;
 }
 
@@ -149,6 +176,39 @@ body {
   box-shadow: 0 10px 20px rgba(225, 6, 0, 0.3);
 }
 
+.link {
+  margin-top: 20px;
+  font-size: 17px;
+  color: #B3B3B3;
+  text-align: center;
+}
+
+.link a {
+  color: #E10600;
+  text-decoration: none;
+   font-weight: 600;
+  transition: 0.3s;
+}
+
+.register-footer {
+  margin-top: 30px;
+  text-align: center;
+  color: #B3B3B3;
+  font-size: 17px;
+}
+
+.register-footer a {
+  color: #E10600;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.register-footer a:hover {
+  color: #FF2B2B;
+  text-decoration: underline;
+}
+
 
 .alerta_erro {
   width: 100%;
@@ -178,12 +238,11 @@ body {
 }
 
 .footer {
-  padding: 30px;
-  text-align: center;
   background: #000000;
+  padding: 35px;
+  text-align: center;
   color: #B3B3B3;
-  border-top: 1px solid #161616;
-  font-size: 14px;
+  margin-top: 40px;
 }
 
 .version {
@@ -198,6 +257,7 @@ body {
   .card-cadastro {
     padding: 30px 20px;
   }
+
   .card-cadastro h2 {
     font-size: 26px;
   }
