@@ -12,5 +12,13 @@ router.post("/cadastrar", function (req, res) {
     motoController.cadastrar(req, res);
 });
 
+router.get("/obter", function (req, res) {
+    motoController.obter(req, res);
+});
+
+router.get("/obterUltimas", function (req, res) {
+    motoController.obterUltimas(req, res);
+});
+
 
 module.exports = router;
