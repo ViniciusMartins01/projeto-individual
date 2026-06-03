@@ -59,7 +59,10 @@
         <div class="card"><img src="${moto.imagem}">
           <div class="card-content">
             <h3>${moto.modelo}</h3>
-          <p>${moto.cilindrada}cc ${moto.categoria}</p><a class="btn" href="${moto.modelo}.html">Ver detalhes</a>
+          <p>${moto.cilindrada}cc ${moto.categoria}</p>
+          <button class="btn" onclick="escolher(${moto.idMoto})">Ver detalhes</button>
+          <button class="btn" onclick="favoritar(${moto.idMoto})">❤️ Favoritar</button>
+          <button class="btn" onclick="deletar(${moto.idMoto})">Deletar</button>
           </div>
         </div>
           `;
@@ -68,6 +71,30 @@
         .catch(function (error) {
           console.error(`Erro na obtenção dos dados: ${error.message}`);
         });
+  }
+
+  function favoritar(idMoto) {
+
+    const idUsuario = sessionStorage.ID_USUARIO;
+    
+    fetch(`/favoritos/inserir`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idUsuario: idUsuario,
+            idMoto: idMoto
+        })
+    })
+    .then(resposta => {
+        if (resposta.ok) {
+            alert("Moto adicionada aos favoritos!");
+        }
+    })
+    .catch(erro => {
+        console.log(erro);
+    });
   }
 
 </script>

@@ -52,7 +52,7 @@
     <div class="cards">
 
       <div class="card-d">
-        <h2>Total de Motos</h2>
+        <h2>Motos Cadastradas</h2>
         <p id="totalMotos"></p>
       </div>
 
@@ -67,12 +67,12 @@
       </div>
 
       <div class="card-d">
-        <h2>Total de Usuários</h2>
+        <h2>Usuários Cadastrados</h2>
         <p id="totalUsuarios"></p>
       </div>
 
       <div class="card-d">
-        <h2>Total de Visualizações</h2>
+        <h2>Total de Favoritadas</h2>
         <p id="totalVisualizacao"></p>
       </div>
 
@@ -92,11 +92,11 @@
     <div class="charts2">
       <div class="chart-container">
         <h3>Notas do site</h3>
-        <canvas id="graficoNotas"></canvas>
+        <canvas class="canvaNota" id="graficoNotas"></canvas>
       </div>
       <div class="chart-container">
-        <h3>Favoritas</h3>
-        <canvas id="graficoFavoritos"></canvas>
+        <h3>Top 5 Favoritas</h3>
+        <canvas class="canvaNota" id="graficoFavoritos"></canvas>
       </div>
     </div>
 
@@ -127,7 +127,7 @@
   <script>
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    window.onload = obterDadosDash(), obterInfos(), obterUltimas(), validarSessao();
+    window.onload = obterDadosDash(), validarSessao();
 
     function obterDadosDash() {
 
@@ -147,6 +147,7 @@
           return response.json();
         })
         .then(function (data) {
+          console.log(data);
           plotarGraficoNota(data);
         })
         .catch(function (error) {
@@ -163,6 +164,8 @@
         .catch(function (error) {
           console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
         });
+      obterInfos();
+      obterUltimas();
 
     }
     function obterInfos() {
@@ -312,7 +315,7 @@
             borderRadius: 5,
 
           },
-        ]
+          ]
         },
 
       });
@@ -320,56 +323,122 @@
     }
 
     function plotarGraficoNota(dados) {
-      var notas = [];
-      var valores = [];
-
-      for (var i = 0; i < dados.length; i++) {
-        notas.push(dados[i].notas);
-        valores.push(dados[i].valores);
-      }
 
       var ctx = document.getElementById('graficoNotas');
-      var myChart = new Chart(ctx, {
-        type: 'doughnut', 
-        data: { 
-          labels: notas,
-          datasets: [{
-            label: 'notas',
-            data: valores,
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
 
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 1
+      new Chart(ctx, {
+        type: 'bar',
+
+        data: {
+          labels: [
+            '⭐⭐⭐⭐⭐',
+            '⭐⭐⭐⭐',
+            '⭐⭐⭐',
+            '⭐⭐',
+            '⭐ '
+          ],
+
+          datasets: [{
+            label: 'Quantidade de Avaliações',
+
+            data: [
+              dados[0].nota5,
+              dados[0].nota4,
+              dados[0].nota3,
+              dados[0].nota2,
+              dados[0].nota1
+            ],
+            backgroundColor: 'rgba(225, 6, 0, 0.2)',
+            borderColor: 'rgba(225, 6, 0, 1)',
+            borderWidth: 1,
+            borderRadius: 5,
+            hoverBackgroundColor: 'rgba(255, 43, 43, 0.8)',
           }]
         },
+        options: {
+          responsive: true,
+
+          indexAxis: 'y',
+
+          plugins: {
+            legend: {
+              display: false
+            }
+          }
+        }
       });
     }
 
     function plotarGraficoFavorito(dados) {
+      const modelos = [];
+      const valores = [];
 
-      var votos = [];
-      var jogadores = [];
-
-      for (var i = 0; i < dados.length; i++) {
-        votos.push(dados[i].votos);
-        jogadores.push(dados[i].jogador);
+      for (i = 0; i < dados.length; i++) {
+        var registro = dados[i];
+        valores.push(registro.totalFavoritos);
+        modelos.push(registro.modelo);
       }
 
-      var ctx = document.getElementById('linha');
-      var myChart = new Chart(ctx, {
-        type: 'line',
-        data: { 
-          labels: jogadores,
-          datasets: [{
-            label: 'Votos',
-            data: votos,
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      const ctx = document.getElementById('graficoFavoritos');
 
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 1
+      new Chart(ctx, {
+        type: 'doughnut',
+
+        data: {
+          labels: modelos,
+
+          datasets: [{
+            data: valores,
+
+            backgroundColor: [
+              'rgba(225, 6, 0, 0.85)',
+              'rgba(255, 43, 43, 0.85)',
+              'rgba(255, 85, 85, 0.85)',
+              'rgba(255, 120, 120, 0.85)',
+              'rgba(255, 160, 160, 0.85)'
+            ],
+
+            hoverBackgroundColor: [
+              'rgba(225, 6, 0, 1)',
+              'rgba(255, 43, 43, 1)',
+              'rgba(255, 85, 85, 1)',
+              'rgba(255, 120, 120, 1)',
+              'rgba(255, 160, 160, 1)'
+            ],
+
+            borderColor: '#161616',
+            borderWidth: 3
           }]
         },
+
+        options: {
+
+          responsive: true,
+
+          plugins: {
+
+            title: {
+              display: true,
+              text: 'Top 5 Motos Mais Favoritadas',
+              color: '#FFFFFF',
+              font: {
+                size: 18
+              }
+            },
+
+            legend: {
+              position: 'bottom',
+
+              labels: {
+                color: '#FFFFFF'
+              }
+            }
+
+          }
+
+        }
       });
+
     }
 
 

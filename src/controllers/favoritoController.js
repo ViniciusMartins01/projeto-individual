@@ -1,9 +1,8 @@
 var favoritoModel = require("../models/favoritoModel");
 
-function buscarfavoritosPorEmpresa(req, res) {
-  var idUsuario = req.params.idUsuario;
+function listar(req, res) {
 
-  favoritoModel.buscarfavoritosPorEmpresa(idUsuario).then((resultado) => {
+  favoritoModel.listar().then((resultado) => {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {
@@ -17,18 +16,16 @@ function buscarfavoritosPorEmpresa(req, res) {
 }
 
 
-function cadastrar(req, res) {
-  var descricao = req.body.descricao;
+function inserir(req, res) {
+  var idMoto = req.body.idMoto;
   var idUsuario = req.body.idUsuario;
 
-  if (descricao == undefined) {
-    res.status(400).send("descricao está undefined!");
+  if (idMoto == undefined) {
+    res.status(400).send("idMoto está undefined!");
   } else if (idUsuario == undefined) {
     res.status(400).send("idUsuario está undefined!");
   } else {
-
-
-    favoritoModel.cadastrar(descricao, idUsuario)
+    favoritoModel.inserir(idMoto, idUsuario)
       .then((resultado) => {
         res.status(201).json(resultado);
       }
@@ -44,6 +41,6 @@ function cadastrar(req, res) {
 }
 
 module.exports = {
-  buscarfavoritosPorEmpresa,
-  cadastrar
+  listar,
+  inserir
 }

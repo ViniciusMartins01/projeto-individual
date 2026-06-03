@@ -3,12 +3,12 @@ var router = express.Router();
 
 var favoritoController = require("../controllers/favoritoController");
 
-router.get("/:empresaId", function (req, res) {
-  favoritoController.buscarfavoritosPorEmpresa(req, res);
+router.get("/listar", function (req, res) {
+  favoritoController.listar(req, res);
 });
 
-router.post("/cadastrar", function (req, res) {
-  favoritoController.cadastrar(req, res);
+router.post("/inserir", function (req, res) {
+  favoritoController.inserir(req, res);
 })
 
 module.exports = router;

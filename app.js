@@ -31,6 +31,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
 app.use("/", indexRouter);
+app.use("/avaliacoes", avaliacaoRouter);
 app.use("/favoritos", favoritoRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/motos", motosRouter);

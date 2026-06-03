@@ -1,16 +1,25 @@
 var database = require("../database/config");
 
-function buscarfavoritosPorEmpresa(empresaId) {
+function listar() {
 
-  var instrucaoSql = `SELECT * FROM favorito a WHERE fk_empresa = ${empresaId}`;
+  var instrucaoSql = `
+        select
+            m.modelo,
+            count(f.idFavorito) as totalFavoritos
+        from favorito f
+        join moto m
+            on f.fkMoto = m.idMoto
+        group by m.idMoto, m.modelo
+        order by totalFavoritos desc
+        limit 5;`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
 
-function cadastrar(empresaId, descricao) {
-  
-  var instrucaoSql = `INSERT INTO (descricao, fk_empresa) favorito VALUES (${descricao}, ${empresaId})`;
+function inserir(idMoto, idUsuario) {
+
+  var instrucaoSql = `INSERT INTO favorito (fkMoto, fkUsuario) VALUES (${idMoto}, ${idUsuario});`
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -18,6 +27,6 @@ function cadastrar(empresaId, descricao) {
 
 
 module.exports = {
-  buscarfavoritosPorEmpresa,
-  cadastrar
+  listar,
+  inserir
 }
