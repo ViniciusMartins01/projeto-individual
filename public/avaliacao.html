@@ -85,6 +85,7 @@
 
     function enviarAvaliacao() {
         let comentario = ipt_comentario.value;
+        let id = sessionStorage.ID_USUARIO
         if (notaSelecionada == "" || comentario == "") {
             resultado.style.display = 'block';
             resultado.style.color = "red";
@@ -99,7 +100,8 @@
                 },
                 body: JSON.stringify({
                     notaServer: notaSelecionada,
-                    comentarioServer: comentario
+                    comentarioServer: comentario,
+                    idServer: id
                 }),
             })
                 .then(function (resposta) {
@@ -114,9 +116,11 @@
 
                     } else {
                         throw "Houve um erro ao tentar realizar o cadastro!";
+                        alert('Só é permitido 1 avaliação por usuário');
                     }
                 })
                 .catch(function (resposta) {
+                    alert('Só é permitido 1 avaliação por usuário');
                     console.log(`#ERRO: ${resposta}`);
                 });
 

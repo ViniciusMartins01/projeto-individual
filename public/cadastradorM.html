@@ -54,14 +54,14 @@
           </div>
           <div class="input-group">
             <label>Pais de origem</label>
-            <input id="ipt_pais" type="number" placeholder="Ex: Alemanha">
+            <input id="ipt_pais" type="text" placeholder="Ex: Alemanha">
           </div>
           <div class="input-group">
             <label>Foto da Marca</label>
             <input type="text" id="ipt_foto" placeholder="Ex: url">
           </div>
           <div class="button-area">
-            <button onclick="cadastrar()" type="submit" class="btn">
+            <button onclick="cadastrarMarca()" type="submit" class="btn">
               Cadastrar Marca
             </button>
           </div>
@@ -78,14 +78,14 @@
         <div class="form-grid">
           <div class="input-group">
             <label>Nome da Categoria</label>
-            <input id="ipt_nome" type="text" placeholder="Ex: Yamaha">
+            <input id="ipt_nomeC" type="text" placeholder="Ex: Trail">
           </div>
           <div class="input-group">
             <label>Descrição</label>
             <input id="ipt_desc" type="text" placeholder="Ex: Categoria focada em trilha">
           </div>
           <div class="button-area">
-            <button onclick="cadastrar()" type="submit" class="btn">
+            <button onclick="cadastrarCategoria()" type="submit" class="btn">
               Cadastrar Categoria
             </button>
           </div>
@@ -98,51 +98,65 @@
 </html>
   <script>
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    var id = sessionStorage.ID_USUARIO;
 
-    function cadastrar() {
-      var id = sessionStorage.ID_USUARIO
-      var modelo = ipt_modelo.value;
-      var cilindrada = ipt_cilindrada.value;
-      var potencia = ipt_potencia.value;
-      var torque = ipt_torque.value;
-      var velocidadeMax = ipt_velocidadeMax.value;
-      var peso = ipt_peso.value;
-      var consumo = ipt_consumo.value;
+    function cadastrarMarca() {
+      var nome = ipt_nome.value;
+      var paisOrigem = ipt_pais.value;
       var foto = ipt_foto.value;
-      var marca = ipt_marca.value;
-      var categoria = ipt_categoria.value;
-      var preco = ipt_preco.value;
 
-      fetch("/motos/cadastrar", {
+      fetch("/marcas/cadastrar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          modeloServer: modelo,
-          velocidadeMaxServer: velocidadeMax,
-          cilindradaServer: cilindrada,
-          potenciaServer: potencia,
-          torqueServer: torque,
-          pesoServer: peso,
-          consumoServer: consumo,
+          nomeServer: nome,
+          paisServer: paisOrigem,
           fotoServer: foto,
-          marcaServer: marca,
-          categoriaServer: categoria,
-          precoServer: preco,
           idServer: id
         }),
       })
         .then(function (resposta) {
           console.log("resposta: ", resposta);
+          if (resposta.ok) {
+            alert("Marca adicionada!");
+        }
           setTimeout(() => {
             window.location = "dashboard.html";
           }, "2000");
         })
         .catch(function (resposta) {
           console.log(`#ERRO: ${resposta}`);
-          finalizarAguardar();
         });
-      return false;
+    }
+    function cadastrarCategoria() {
+      var nome = ipt_nomeC.value;
+      var desc = ipt_desc.value
+
+
+      fetch("/categorias/cadastrar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nomeServer: nome,
+          descServer: desc,
+          idServer: id
+        }),
+      })
+        .then(function (resposta) {
+          console.log("resposta: ", resposta);
+          if (resposta.ok) {
+            alert("Categoria Cadastrada!");
+        }
+          setTimeout(() => {
+            window.location = "dashboard.html";
+          }, "2000");
+        })
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        });
     }
   </script>

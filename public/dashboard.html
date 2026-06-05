@@ -73,7 +73,7 @@
 
       <div class="card-d">
         <h2>Total de Favoritadas</h2>
-        <p id="totalVisualizacao"></p>
+        <p id="totalFavoritos"></p>
       </div>
 
       <div class="card-d">
@@ -180,7 +180,7 @@
           document.getElementById('totalUsuarios').innerText = data[0].totalUsuarios;
           document.getElementById('totalMarcas').innerText = data[0].totalMarcas;
           document.getElementById('totalCategoria').innerText = data[0].totalCategoria;
-          document.getElementById('totalVisualizacao').innerText = data[0].totalVisualizacao;
+          document.getElementById('totalFavoritos').innerText = data[0].totalFavoritos;
           document.getElementById('mediaAvaliacao').innerText = data[0].mediaAvaliacao;
         })
         .catch(function (error) {
