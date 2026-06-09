@@ -20,5 +20,13 @@ router.get("/obterUltimas", function (req, res) {
     motoController.obterUltimas(req, res);
 });
 
+router.get("/detalhes/:id", function (req, res) {
+    motoController.obterDetalhes(req, res);
+});
+
+router.delete("/excluir/:id", function (req, res) {
+    motoController.excluir(req, res);
+});
+
 
 module.exports = router;

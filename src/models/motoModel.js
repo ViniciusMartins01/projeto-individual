@@ -35,11 +35,14 @@ function obter() {
 function obterUltimas() {
     console.log("ACESSEI O MOTO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function obter()");
     var instrucaoSql = `
-        select m.idMoto, m.modelo, c.nome as categoria, mr.nome as marca
+        select m.idMoto, m.modelo, c.nome as categoria, mr.nome as marca, count(f.idFavorito) as totalFavoritos
         from moto m join categoria c
         on m.fkCategoria = c.idCategoria
         join marca mr
         on m.fkMarca = mr.idMarca
+        left join favorito f
+        on m.idMoto = f.fkMoto
+        group by m.idMoto, m.modelo, c.nome, mr.nome
         order by idMoto desc
         limit 5;
         `;
@@ -47,9 +50,34 @@ function obterUltimas() {
     return database.executar(instrucaoSql);
 }
 
+function obterDetalhes(id) {
+    console.log("ACESSEI O MOTO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function obterDetalhes():", id);
+    var instrucaoSql = `
+        select m.*, c.nome as categoria, mr.nome as marca
+        from moto m join categoria c
+        on m.fkCategoria = c.idCategoria
+        join marca mr
+        on m.fkMarca = mr.idMarca
+        where m.idMoto = ${id};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+};
+
+function excluir(id) {
+    console.log("ACESSEI O MOTO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function excluir():", id);
+    var instrucaoSql = `
+        delete from moto where idMoto = ${id};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+};
+
 module.exports = {
     cadastrar,
     listar,
     obter,
-    obterUltimas
+    obterUltimas,
+    obterDetalhes,
+    excluir
 }

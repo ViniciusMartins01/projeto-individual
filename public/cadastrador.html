@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
-<body onload="validarSessao()">
+<body onload="validarSessao(), preencherMarca(), preencherCategoria()">
 
 
   <div class="sidebar">
@@ -54,26 +54,12 @@
             <label>Marca</label>
             <select id="ipt_marca">
               <option>Selecione</option>
-              <option value="1">Honda</option>
-              <option value="2">Yamaha</option>
-              <option value="3">Kawasaki</option>
-              <option value="4">Suzuki</option>
-              <option value="5">BMW</option>
-              <option value="6">Bajaj</option>
-              <option value="7">Shineray</option>
-              <option value="8">Dafra</option>
             </select>
           </div>
           <div class="input-group">
             <label>Categoria</label>
             <select id="ipt_categoria">
               <option>Selecione</option>
-              <option value="1">Esportiva</option>
-              <option value="2">Naked</option>
-              <option value="3">Adventure</option>
-              <option value="4">Custom</option>
-              <option value="5">Trail</option>
-              <option value="6">Street</option>
             </select>
           </div>
           <div class="input-group">
@@ -171,7 +157,45 @@
         });
     }
 
-    function preencherMarcaCategoria(){
+    function preencherMarca(){
+      fetch(`/marcas/listar`)
+        .then(function (response) {
+          console.log(response)
+          return response.json();
+        })
+        .then(function (data) {
+          console.log(data)
+          for (let i = 0; i < data.length; i++) {
+            const marca = data[i];
+            document.getElementById('ipt_marca').innerHTML += `
+              <option value="${marca.idMarca}">${marca.nome}</option>
+            `;
+          }
+        })
+        .catch(function (error) {
+          console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+
+    }
+
+    function preencherCategoria(){
+      fetch(`/categorias/listar`)
+        .then(function (response) {
+          console.log(response)
+          return response.json();
+        })
+        .then(function (data) {
+          console.log(data)
+          for (let i = 0; i < data.length; i++) {
+            const categoria = data[i];
+            document.getElementById('ipt_categoria').innerHTML += `
+              <option value="${categoria.idCategoria}">${categoria.nome}</option>
+            `;
+          }
+        })
+        .catch(function (error) {
+          console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
 
     }
   </script>

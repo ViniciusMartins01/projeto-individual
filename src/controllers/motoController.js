@@ -52,10 +52,34 @@ function cadastrar(req, res) {
     });
 }
 
+function obterDetalhes(req, res) {
+    var id = req.params.id;
+    motoModel.obterDetalhes(id).then(function (resultado) {
+        res.status(200).json(resultado);
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function excluir(req, res) {
+    var id = req.params.id;
+    motoModel.excluir(id).then(function (resultado) {
+        res.status(200).json(resultado);
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 
 module.exports = {
     listar,
     cadastrar,
     obter,
-    obterUltimas
+    obterUltimas,
+    obterDetalhes,
+    excluir
 }

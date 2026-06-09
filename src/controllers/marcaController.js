@@ -34,6 +34,17 @@ function cadastrar(req, res) {
     }
 }
 
+function listar(req, res) {
+    marcaModel.listar().then(function (resultado) {
+        res.status(200).json(resultado);
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
-    cadastrar
+    cadastrar,
+    listar
 }

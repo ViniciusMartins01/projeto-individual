@@ -41,7 +41,7 @@
 <script>
 
   function escolher(idMoto) {
-    sessionStorage.setItem(idMoto, idMoto);
+    sessionStorage.setItem("ID_MOTO", idMoto);
     window.location.href = 'detalhes.html'
   }
 
@@ -62,6 +62,7 @@
           <p>${moto.cilindrada}cc ${moto.categoria}</p>
           <button class="btn" onclick="escolher(${moto.idMoto})">Ver detalhes</button>
           <button class="btn" onclick="favoritar(${moto.idMoto})">❤️ Favoritar</button>
+          <button class="btn" onclick="excluir(${moto.idMoto})">❌ Excluir</button>
           </div>
         </div>
           `;
@@ -89,6 +90,21 @@
     .then(resposta => {
         if (resposta.ok) {
             alert("Moto adicionada aos favoritos!");
+        }
+    })
+    .catch(erro => {
+        console.log(erro);
+    });
+  }
+
+  function excluir(idMoto) {
+    fetch(`/motos/excluir/${idMoto}`, {
+        method: "DELETE"
+    })
+    .then(resposta => {
+        if (resposta.ok) {
+            alert("Moto excluída com sucesso!");
+            location.reload();
         }
     })
     .catch(erro => {

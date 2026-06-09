@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
-<body>
+<body onload="carregarDetalhes(sessionStorage.ID_MOTO)">
 <header>
 
   <a href="index.html">
@@ -32,22 +32,21 @@
 
   <div class="hero-text">
 
-    <span>HONDA</span>
+    <span id="span_marca"></span>
 
-    <h1>CB 500F</h1>
+    <h1 id="h1_modelo"></h1>
 
-    <p>
-      A Honda CB 500F combina performance, conforto e design agressivo
-      em uma naked moderna perfeita para cidade e estrada.
+    <p id="p_descricao">
+      
     </p>
 
     <div class="buttons">
 
-      <a href="#" class="btn-primary">
+      <a onclick="favoritar(sessionStorage.ID_MOTO)" class="btn-primary">
         Adicionar aos favoritos
       </a>
 
-      <a href="#" class="btn-secondary">
+      <a href="dashboard.html" class="btn-secondary">
         Comparar moto
       </a>
 
@@ -56,9 +55,7 @@
   </div>
 
   <div class="hero-image">
-    <img src="assets/imgs/cb500-fundo.webp">
-    
-    
+    <img src="" id="img_moto" alt="Imagem da moto">
   </div>
   
 </section>
@@ -73,78 +70,22 @@
 
     <div class="spec-card">
       <h3>Cilindrada</h3>
-      <p>500cc</p>
+      <p id="p_cilindrada"></p>
     </div>
 
     <div class="spec-card">
       <h3>Potência</h3>
-      <p>50 CV</p>
+      <p id="p_potencia"></p>
     </div>
 
     <div class="spec-card">
       <h3>Velocidade Máx.</h3>
-      <p>185 km/h</p>
+      <p id="p_velocidadeMax"></p>
     </div>
 
     <div class="spec-card">
       <h3>Preço Médio</h3>
-      <p>R$ 43 mil</p>
-    </div>
-
-  </div>
-
-</section>
-
-
-<section class="about">
-
-  <div class="about-card">
-
-    <h2>Sobre a moto</h2>
-
-    <p>
-      A Honda CB 500F é conhecida pelo equilíbrio entre desempenho e
-      economia. Seu motor bicilíndrico entrega aceleração suave,
-      excelente torque e ótima pilotagem para iniciantes e experientes.
-    </p>
-
-  </div>
-
-  <div class="about-card">
-
-    <h2>Destaques</h2>
-
-    <p>
-      • Painel digital moderno <br><br>
-      • Iluminação Full LED <br><br>
-      • Suspensão confortável <br><br>
-      • Freios ABS <br><br>
-      • Design naked agressivo
-    </p>
-
-  </div>
-
-</section>
-
-
-<section class="gallery">
-
-  <div class="section-title">
-    <h2>Galeria <span>CB 500F</span></h2>
-  </div>
-
-  <div class="gallery-grid">
-
-    <div class="gallery-card">
-      <img src="assets/imgs/cb500-galeria3.webp">
-    </div>
-    
-    <div class="gallery-card">
-      <img src="assets/imgs/cb500-galeria2.webp">
-    </div>
-    
-    <div class="gallery-card">
-      <img src="assets/imgs/cb500-galeria1.webp">
+      <p id="p_preco"></p>
     </div>
 
   </div>
@@ -158,3 +99,51 @@
 
 </body>
 </html>
+
+<script>
+
+  function carregarDetalhes(idMoto) {
+    fetch(`/motos/detalhes/${idMoto}`)
+        .then(function (response) {
+          console.log(response)
+          return response.json();
+        })
+        .then(function (data) {
+          console.log(data)
+          document.getElementById('span_marca').innerText = data[0].marca;
+          document.getElementById('h1_modelo').innerText = data[0].modelo;
+          document.getElementById('p_descricao').innerText = `${data[0].descricao}`;
+          document.getElementById('img_moto').src = data[0].imagem;
+          document.getElementById('p_cilindrada').innerText = `${data[0].cilindrada} cc`;
+          document.getElementById('p_potencia').innerText = `${data[0].potencia} cv`;
+          document.getElementById('p_velocidadeMax').innerText = `${data[0].velocidadeMax} km/h`;
+          document.getElementById('p_preco').innerText = `R$ ${data[0].preco}`;
+        })
+        .catch(function (error) {
+          console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+  }
+  function favoritar(idMoto) {
+
+    const idUsuario = sessionStorage.ID_USUARIO;
+    
+    fetch(`/favoritos/inserir`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idUsuario: idUsuario,
+            idMoto: idMoto
+        })
+    })
+    .then(resposta => {
+        if (resposta.ok) {
+            alert("Moto adicionada aos favoritos!");
+        }
+    })
+    .catch(erro => {
+        console.log(erro);
+    });
+  }
+</script>
