@@ -147,6 +147,7 @@ O MotoRadar está alinhado à ODS 12 ao promover o acesso à informação e ince
 ## 📊 Dashboard
 
 ![Dashboard](./public/assets/imgs/dashboard.png)
+![Dashboard](./public/assets/imgs/dashboard2.png)
 
 ## ⭐ Avaliações
 
