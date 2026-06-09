@@ -2,7 +2,7 @@
 
 ## 📌 Sobre o Projeto
 
-O MotoRadar é uma plataforma web desenvolvida como Projeto Individual do curso de Análise e Desenvolvimento de Sistemas da SPTech School.
+O MotoByte é uma plataforma web desenvolvida como Projeto Individual do curso de Análise e Desenvolvimento de Sistemas da SPTech School.
 
 O sistema foi criado com o objetivo de reunir informações técnicas sobre motocicletas em um único ambiente, permitindo que usuários consultem modelos, comparem especificações, realizem avaliações e salvem motos favoritas.
 
@@ -183,11 +183,11 @@ GitHub:
 https://github.com/ViniciusMartins01
 
 LinkedIn:
-linkedin.com/in/vinicius-martins-434b26263/
+https://www.linkedin.com/in/vinicius-martins0108
 
 ---
 
 ## 🏁 Considerações Finais
 
-O MotoRadar representa a união entre tecnologia, análise de dados e paixão pelo universo das motocicletas. O projeto permitiu consolidar conhecimentos adquiridos ao longo do curso e demonstrar a construção completa de uma aplicação web integrada com banco de dados, APIs e dashboard analítica.
+O MotoByte representa a união entre tecnologia, análise de dados e paixão pelo universo das motocicletas. O projeto permitiu consolidar conhecimentos adquiridos ao longo do curso e demonstrar a construção completa de uma aplicação web integrada com banco de dados, APIs e dashboard analítica.
 
