@@ -138,23 +138,23 @@ O MotoRadar está alinhado à ODS 12 ao promover o acesso à informação e ince
 
 ## 🏠 Home
 
-![Home do MotoRadar](./public/assets/home.png)
+![Home do MotoRadar](./public/assets/imgs/home.png)
 
 ## 📚 Catálogo
 
-![Catálogo](./public/assets/catalogo.png)
+![Catálogo](./public/assets/imgs/catalogo.png)
 
 ## 📊 Dashboard
 
-![Dashboard](./public/assets/dashboard.png)
+![Dashboard](./public/assets/imgs/dashboard.png)
 
 ## ⭐ Avaliações
 
-![Avaliações](./public/assets/avaliacao.png)
+![Avaliações](./public/assets/imgs/avaliacao.png)
 
 ## 🏍️ Cadastro de Moto
 
-![Cadastro de Moto](./public/assets/cadastro.png)
+![Cadastro de Moto](./public/assets/imgs/cadastro.png)
 ---
 
 ## 📚 Aprendizados
